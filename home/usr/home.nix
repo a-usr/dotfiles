@@ -7,7 +7,6 @@
     ./hyprpaper
   ];
   home.packages = with pkgs; [
-    rustup
     starship
     tmux
     firefox
@@ -20,6 +19,11 @@
     spicetify-cli
     grim
     slurp
+    python3
+    python311Packages.wand
+    imagemagick
+
+    vscodium
   ];
   programs = {
       
