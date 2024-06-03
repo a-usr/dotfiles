@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, qtdeclarative, qtsvg, qt5compat, wrapQtAppsHook }:
+{ stdenv, fetchFromGitHub, qtdeclarative, qtsvg, qt5compat, wrapQtAppsHook, sddm }:
 
 stdenv.mkDerivation rec {
   pname = "sddm-theme-astronaut";
@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/sddm/themes
     cp -aR $src $out/share/sddm/themes/sddm-theme-astronaut
   '';
-  buildInputs = [ qt5compat qtdeclarative qtsvg];  
+  buildInputs = [ qt5compat qtdeclarative qtsvg sddm];  
   dontWrapQtApps = true;
 
   src = fetchFromGitHub {

@@ -1,10 +1,11 @@
-{configs, lib, pkgs, ...}: 
+{configs, lib, pkgs, inputs, ...}: 
 {
   imports = [
     ./playerctl
     ./hyprland
     ./hyprpaper
     ./ags
+    ./gtk
   ];
 
   home.sessionVariables = {
@@ -19,16 +20,26 @@
     alacritty
     armcord
     (nerdfonts.override { fonts = ["Hermit" "CascadiaCode"]; })
-    rPackages.phosphoricons
-    hyprpaper
     spicetify-cli
+    
+    nordic
+
     grim
     slurp
-    python3
-    python311Packages.wand
-    imagemagick
+    inputs.hyprpicker.packages."x86_64-linux".hyprpicker
+    
+    brightnessctl
 
+    imagemagick
+    fd
+   
+    dart-sass
+    sassc
+    bun
     vscodium
+    
+    papirus-icon-theme
+    gnome3.adwaita-icon-theme
   ];
   programs = {
       
