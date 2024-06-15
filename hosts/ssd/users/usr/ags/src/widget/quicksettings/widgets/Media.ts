@@ -15,6 +15,11 @@ function lengthStr(length: number) {
 }
 
 const Player = (player: MprisPlayer) => {
+    if (player.name == "playerctld") {
+        return Widget.Label ( {
+            label: ""
+        })
+    }
     const cover = Widget.Box({
         class_name: "cover",
         vpack: "start",

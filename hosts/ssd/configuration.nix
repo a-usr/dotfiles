@@ -2,13 +2,18 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, unstable, ... }:
+{ config, lib, pkgs, unstable, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.hyprland.nixosModules.default
     ];
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  }; 
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -42,36 +47,7 @@
     (callPackage ../../nixpkgs/fonts/Phosphor.nix {})
     ];
 
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true; 
-    xkb.layout = "de";
-  };
-  services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      theme = "sddm-theme-astronaut"; 
-  };
-
-  services.upower = {
-    enable = true;
-  };
-
   
-
-  # Configure keymap in X12
-  # services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-  # Enable CUPS to print documents.
-  # services.printing.enable = true;
-
-  # Enable sound.
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
   
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -81,6 +57,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.hyprland = {
     enable = true;
+    #package = pkgs.trunk.hyprland;
     #enableNvidiaPatches = true;
   };
  
@@ -96,6 +73,7 @@
     wl-clipboard
     wl-clip-persist
     nix-prefetch-github
+    kdePackages.qt5compat
     (qt6.callPackage ../../nixpkgs/sddmThemes/sddm-astronaut-theme.nix {})
     spotify
     pamixer
@@ -111,19 +89,7 @@
 
   # List services that you want to enable:
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.kmscon = with pkgs; {
-    enable = true;
-    fonts = [ 
-      {
-        name = "Hurmit Nerd Font Mono";
-        package = (nerdfonts.override { fonts = ["Hermit"]; });
-      }
-    ];
-    extraConfig = "xkb-layout=de";
-  };
-  # Open ports in the firewall.
+    # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
@@ -148,6 +114,9 @@
     "nvidia-x11"
     "nvidia-settings"
     "spotify"
+    "steam"
+    "steam-original"
+    "steam-run"
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
