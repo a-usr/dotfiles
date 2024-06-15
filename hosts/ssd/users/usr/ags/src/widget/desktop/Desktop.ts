@@ -1,5 +1,4 @@
 import options from "options"
-import { matugen } from "lib/matugen"
 const mpris = await Service.import("mpris")
 
 const pref = () => options.bar.media.preferred.value
@@ -23,7 +22,6 @@ export default (monitor: number) => Widget.Window({
             setup: self => self
                 .hook(mpris, () => {
                     const img = mpris.getPlayer(pref())!.cover_path
-                    matugen("image", img)
                     Utils.timeout(500, () => self.css = `
                         background-image: url('${img}');
                         background-size: contain;

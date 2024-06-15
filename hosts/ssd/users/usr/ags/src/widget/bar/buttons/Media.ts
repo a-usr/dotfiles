@@ -8,9 +8,22 @@ const mpris = await Service.import("mpris")
 const { length, direction, preferred, monochrome, format } = options.bar.media
 
 const getPlayer = (name = preferred.value) =>
-    mpris.getPlayer(name) || mpris.players[0] || null
+    mpris.getPlayer(name) || (mpris.players[0].name != "playerctld" ? mpris.players[0] : mpris.players[1]) || null
 
 const Content = (player: MprisPlayer) => {
+    player.bind("position").as((pos)=> {progress.setValue(pos)})
+    Utils.merge([
+        player.bind("track_title"),
+        player.bind("track_artists"),
+        format.bind(),
+    ], () => `${format}`
+        .replace("{title}", player.track_title)
+        .replace("{artists}", player.track_artists.join(", "))
+        .replace("{artist}", player.track_artists[0] || "")
+        .replace("{album}", player.track_album)
+        .replace("{name}", player.name)
+        .replace("{identity}", player.identity),
+    ).as((title) => { name.setValue(title)})
     const revealer = Widget.Revealer({
         click_through: true,
         visible: length.bind().as(l => l > 0),
@@ -23,26 +36,41 @@ const Content = (player: MprisPlayer) => {
 
                 current = player.track_title
                 self.reveal_child = true
+                active.setValue(true)
                 Utils.timeout(3000, () => {
                     !self.is_destroyed && (self.reveal_child = false)
+                    active.setValue(false)
                 })
             })
         },
-        child: Widget.Label({
-            truncate: "end",
-            max_width_chars: length.bind().as(n => n > 0 ? n : -1),
-            label: Utils.merge([
-                player.bind("track_title"),
-                player.bind("track_artists"),
-                format.bind(),
-            ], () => `${format}`
-                .replace("{title}", player.track_title)
-                .replace("{artists}", player.track_artists.join(", "))
-                .replace("{artist}", player.track_artists[0] || "")
-                .replace("{album}", player.track_album)
-                .replace("{name}", player.name)
-                .replace("{identity}", player.identity),
-            ),
+        child: Widget.Box({
+            children: [
+                Widget.Button({
+                    on_clicked: () => player.previous(),
+                    visible: player.bind("can_go_prev"),
+                    child: Widget.Icon(icons.mpris.prev),
+                }),
+                Widget.Button({
+                    class_name: "play-pause",
+                    on_clicked: () => player.playPause(),
+                    visible: player.bind("can_play"),
+                    child: Widget.Icon({
+                        icon: player.bind("play_back_status").as(s => {
+                            switch (s) {
+                                case "Playing": return icons.mpris.playing
+                                case "Paused":
+                                case "Stopped": return icons.mpris.stopped
+                            }
+                       }),
+                    }),
+                }),
+                Widget.Button({
+                    on_clicked: () => player.next(),
+                    visible: player.bind("can_go_next"),
+                    child: Widget.Icon(icons.mpris.next),
+                })
+            ],
+            vertical: false
         }),
     })
 
@@ -59,7 +87,9 @@ const Content = (player: MprisPlayer) => {
             ? [playericon, revealer] : [revealer, playericon]),
     })
 }
-
+export const name = Variable("")
+export const progress = Variable(-1)
+export const active = Variable(false)
 export default () => {
     let player = getPlayer()
 
@@ -72,18 +102,23 @@ export default () => {
         player = getPlayer()
         btn.visible = !!player
 
-        if (!player)
+        if (!player) {
+            progress.setValue(-1)
+            name.setValue("")
             return
+        }
 
         const content = Content(player)
         const { revealer } = content.attribute
         btn.child = content
-        btn.on_primary_click = () => { player.playPause() }
-        btn.on_secondary_click = () => { player.playPause() }
-        btn.on_scroll_up = () => { player.next() }
-        btn.on_scroll_down = () => { player.previous() }
-        btn.on_hover = () => { revealer.reveal_child = true }
-        btn.on_hover_lost = () => { revealer.reveal_child = false }
+        btn.on_hover = () => { 
+            revealer.reveal_child = true
+            active.setValue(true)
+         }
+        btn.on_hover_lost = () => { 
+            revealer.reveal_child = false
+            active.setValue(false)
+         }
     }
 
     return btn

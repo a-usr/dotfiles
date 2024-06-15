@@ -8,7 +8,12 @@
     trunk.url = "github:NixOS/nixpkgs";
     
     ags.url = "github:Aylur/ags";
-    
+   
+    hyprland = {
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
+    };
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprpicker.url = "github:hyprwm/hyprpicker";
     
@@ -17,17 +22,6 @@
   };
 
   outputs = { self, nixpkgs, home-manager ,... }@inputs: {
-    overlays = {
-      # Inject 'unstable' and 'trunk' into the overridden package set, so that
-      # the following overlays may access them (along with any system configs
-      # that wish to do so).
-      pkg-sets = (
-        final: prev: {
-          unstable = import inputs.unstable { system = final.system; };
-          trunk = import inputs.trunk { system = final.system; };
-        }
-      );
-    };
 
     nixosConfigurations.ssd = import ./hosts/ssd (inputs);
   };

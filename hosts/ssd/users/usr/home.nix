@@ -6,6 +6,9 @@
     ./hyprpaper
     ./ags
     ./gtk
+    ./alacritty
+    ./zsh
+    ./starship
   ];
 
   home.sessionVariables = {
@@ -18,21 +21,26 @@
     firefox
     grimblast
     alacritty
-    armcord
+    #webcord-vencord
+    vesktop
     (nerdfonts.override { fonts = ["Hermit" "CascadiaCode"]; })
-    spicetify-cli
+    #spicetify-cli
     
+    xfce.thunar
     nordic
 
     grim
     slurp
     inputs.hyprpicker.packages."x86_64-linux".hyprpicker
+    swappy
     
     brightnessctl
+    gvfs
 
     imagemagick
     fd
-   
+    fzf
+    #power-profiles-daemon 
     dart-sass
     sassc
     bun
@@ -40,19 +48,14 @@
     
     papirus-icon-theme
     gnome3.adwaita-icon-theme
+
+    ncspot
+    
   ];
   programs = {
       
-    zsh = {
-      enable = true;
-      enableCompletion = true;
-      autosuggestion.enable = true;
-      syntaxHighlighting.enable = true;
-    };
+   
 
-    starship = {
-      enable = true;
-    };
     tmux = {
       enable = true;
       shortcut = "y";
@@ -108,7 +111,7 @@ color: #eceff4;
     };
 
     waybar = {
-      enable = true;
+      enable = false;
     };
   };
   home.stateVersion = "23.11";
