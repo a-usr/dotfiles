@@ -13,6 +13,9 @@
       wayland.enable = true;
       theme = "sddm-theme-astronaut";
       package = pkgs.kdePackages.sddm;
+      extraPackages = [
+        kdePackages.qt5compat
+      ];
   };
 
   services.upower = {

@@ -16,6 +16,6 @@ nixpkgs.lib.nixosSystem {
     # so the old configuration file still takes effect
     ./configuration.nix
     ./services
-    ./users
+    ./users.nix
   ];
 }

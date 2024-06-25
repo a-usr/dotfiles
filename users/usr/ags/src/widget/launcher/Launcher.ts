@@ -10,8 +10,16 @@ import * as ShRun from "./ShRun"
 const { width, margin } = options.launcher
 const isnix = nix.available
 
+const commands = {
+    ">": "run a shell command",
+}
+if (isnix){
+    commands[":nix"] = options.launcher.nix.pkgs.bind().as(pkg =>
+        `run a nix package from ${pkg}`)
+}
+
+
 function Launcher() {
-    const favs = AppLauncher.Favorites()
     const applauncher = AppLauncher.Launcher()
     const sh = ShRun.ShRun()
     const shicon = ShRun.Icon()
@@ -34,7 +42,7 @@ function Launcher() {
                 Widget.Box([
                     Widget.Label({
                         class_name: "name",
-                        label: `:${cmd}`,
+                        label: `${cmd}`,
                     }),
                     Widget.Label({
                         hexpand: true,
@@ -47,14 +55,34 @@ function Launcher() {
         )
     }
 
-    const help = Widget.Revealer({
+    var _help = Widget.Revealer({
         child: Widget.Box(
             { vertical: true },
-            HelpButton("sh", "run a binary"),
-            isnix ? HelpButton("nx", options.launcher.nix.pkgs.bind().as(pkg =>
+            HelpButton("/", "run a binary"),
+            isnix ? HelpButton(":nx", options.launcher.nix.pkgs.bind().as(pkg =>
                 `run a nix package from ${pkg}`,
             )) : Widget.Box(),
         ),
+    })
+    const help = Object.assign(_help, {
+        filter: async (query)=>{
+            query||=""
+            if (query.split(" ").length > 1){
+                _help.reveal_child = false
+            }
+            else {
+                var matches:Array<string> = []
+                for (var cmd in commands) {
+                    if (cmd.startsWith(query)){
+                        matches.push(cmd)
+                    }
+                }
+                _help.child.children = matches.map((match)=>{return HelpButton(match, commands[match])})
+                if (_help.child.children.length){
+                    _help.reveal_child = true
+                }
+            }
+        }   
     })
 
     const entry = Widget.Entry({
@@ -63,40 +91,70 @@ function Launcher() {
         on_accept: ({ text }) => {
             if (text?.startsWith(":nx"))
                 nix.run(text.substring(3))
-            else if (text?.startsWith(":sh"))
-                sh.run(text.substring(3))
+            else if (text?.startsWith("/"))
+                sh.run(text.substring(1))
             else
                 applauncher.launchFirst()
 
             App.toggleWindow("launcher")
             entry.text = ""
         },
-        on_change: ({ text }) => {
+        on_change: async ({ text }) => {
             text ||= ""
-            favs.reveal_child = text === ""
-            help.reveal_child = text.split(" ").length === 1 && text?.startsWith(":")
+            //help.reveal_child = text.split(" ").length === 1 && text?.startsWith(":")
+            help.filter(text)
 
             if (text?.startsWith(":nx"))
                 nix.filter(text.substring(3))
             else
                 nix.filter("")
 
-            if (text?.startsWith(":sh"))
-                sh.filter(text.substring(3))
+            if (text?.startsWith(">"))
+                sh.filter(text.substring(1))
             else
                 sh.filter("")
 
-            if (!text?.startsWith(":"))
+            if (text === " " || !Object.keys(commands).some((val, ind, arr)=>{
+                return val.startsWith(text.split(" ")[0])
+            })){
                 applauncher.filter(text)
+            }
+            else {
+                applauncher.filter("")
+            }
         },
     })
 
     function focus() {
-        entry.text = "Search"
+        var text = entry.text ? entry.text : ""
+        if (text === ""){
+            text = "Search"
+            help.filter("");
+        }
+        else {
+            help.filter(text)
+            if (text.startsWith(":nx"))
+                nix.filter(text.substring(3))
+            else
+                nix.filter("")
+
+            if (text.startsWith(">"))
+                sh.filter(text.substring(1))
+            else
+                sh.filter("")
+
+            if (text === " " || !Object.keys(commands).some((val, ind, arr)=>{
+                return val.startsWith(text.split(" ")[0])
+            })){
+                applauncher.filter(text)
+            }
+            else {
+                applauncher.filter("")
+            }
+        }
         entry.set_position(-1)
         entry.select_region(0, -1)
         entry.grab_focus()
-        favs.reveal_child = true
     }
 
     const layout = Widget.Box({
@@ -108,13 +166,11 @@ function Launcher() {
             if (win !== "launcher")
                 return
 
-            entry.text = ""
             if (visible)
                 focus()
         }),
         children: [
             Widget.Box([entry, nixload, shicon]),
-            favs,
             help,
             applauncher,
             nix,
@@ -136,5 +192,5 @@ export default () => PopupWindow({
     name: "launcher",
     layout: "center",
     child: Launcher(),
-    transition: "crossfade"
+    transition: "slide_up"
 })

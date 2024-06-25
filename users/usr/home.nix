@@ -31,6 +31,7 @@
 
     grim
     slurp
+    wayshot
     inputs.hyprpicker.packages."x86_64-linux".hyprpicker
     swappy
     
@@ -38,6 +39,8 @@
     gvfs
 
     imagemagick
+    ffmpeg
+
     fd
     fzf
     #power-profiles-daemon 
@@ -50,6 +53,11 @@
     gnome3.adwaita-icon-theme
 
     ncspot
+    bottom
+
+
+    wf-recorder
+    obs-studio
     
   ];
   programs = {
@@ -60,6 +68,7 @@
       enable = true;
       shortcut = "y";
       extraConfig = ''
+        set -g mouse on
         bind , split-window -h
         bind . split-window -v
       '';
