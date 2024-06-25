@@ -94,21 +94,41 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  hardware.nvidia = {
-    modesetting.enable = true;
+  
+  hardware = {
+    nvidia = {
+      modesetting.enable = true;
 
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
 
-    open = false;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+      open = false;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
 
+    };
+
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
+
+    bluetooth = {
+      enable = true;
+      settings.General.Experimental = true;
+
+    };
+
+    xone = {
+      enable = true;
+    };
+
+    xpadneo = {
+      enable = true;
+    };
   };
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  
+
   services.xserver.videoDrivers = ["nvidia"];
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "nvidia-x11"
@@ -117,6 +137,7 @@
     "steam"
     "steam-original"
     "steam-run"
+    "xow_dongle-firmware"
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system

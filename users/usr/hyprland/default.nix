@@ -10,10 +10,23 @@ in
   wayland.windowManager.hyprland = {
     #package = pkgs.trunk.hyprland;
     enable = true;
+    plugins = [
+      inputs.hy3.packages.x86_64-linux.hy3
+    ];
     settings = {
       "$mod" = "SUPER";
       bind =
         [
+          "ALT SHIFT, Left, hy3:movewindow, l"
+          "ALT SHIFT, Right, hy3:movewindow, r"
+          "ALT SHIFT, Up, hy3:movewindow, u"
+          "ALT SHIFT, Down, hy3:movewindow, d"
+          "ALT, Left, hy3:movefocus, l"
+          "ALT, Right, hy3:movefocus, r"
+          "ALT, Up, hy3:movefocus, u"
+          "ALT, Down, hy3:movefocus, d"
+          "$mod, X, hy3:makegroup, h"
+          "$mod SHIFT, X, hy3:makegroup, v"
           "$mod, escape, exec, ags --toggle-window powermenu"
           ", code:122, exec, pamixer -d 5"
           ", code:123, exec, pamixer -i 5"
@@ -25,7 +38,7 @@ in
           "$mod, M, exit"
           "$mod, T, exec, alacritty"
           "$mod, Q, killactive"
-          "ALT, space, exec, wofi --show=drun"
+          "ALT, space, exec, ags --toggle-window launcher"
           "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(wl-copy) >(swappy -f -)"
           "SUPER_SHIFT, C, exec, cliphist list | wofi --show=dmenu | cliphist decode | wl-copy"
         ]
@@ -51,9 +64,14 @@ in
         "ags"
       ];
 
-      windowrulev2 = [
-        
+      windowrule = [
+        "fullscreen, title:(HELLDIVERS™ 2)"
+        "fullscreen, title:(Titanfall 2)"
       ];
+
+      general = {
+        layout = "hy3";
+      };
 
       decoration = {
         rounding = 5;
@@ -87,7 +105,7 @@ in
         "XDG_CACHE_DIR,/home/usr/.cache/"
         "XDG_CONFIG_HOME,/home/usr/.config/"
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        #"NIXOS_OZONE_WL,1"
+        "NIXOS_OZONE_WL,1"
       ];
       input = {
         kb_layout = "de";
