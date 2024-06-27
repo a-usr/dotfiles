@@ -27,5 +27,6 @@
   outputs = { self, nixpkgs, home-manager, ... }@inputs: {
     lib = import ./overlays/lib.nix (inputs);
     nixosConfigurations.ssd = import ./hosts/ssd (inputs);
+    nixosConfigurations.silenos = import ./hosts/silenos (inputs);
   };
 }
