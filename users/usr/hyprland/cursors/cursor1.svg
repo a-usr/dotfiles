@@ -1,0 +1,16 @@
+<svg width="1000" height="1000" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0,0,100,100">    
+        <path id="cursor" x="2" d=" m3 3 L70 70 L36.493 83.8798 M70 70 L31 70 M31.25 71 L3 3 M51 51 L23.0597014925 51 M70 70 L23.0597014925 51 L35 35 M35 35 L16.3731343284 35" stroke="#5E81AC" stroke-width="2" fill="rgba(129,161,193,0.329)"/>
+        <use href="#cursor" transform="translate(3) scale(-1, 1) translate(-3) rotate(45, 3, 3)"/>
+        <polygon points="2,0.3928571428 2,4 4.4,3" fill="#5E81AC"/>
+        <line x1="70" y1="70" x2="3" y2="97.7523086790" stroke="#5E81AC" stroke-width="2"/>
+        <!-- 
+            center line:    x=(y+4,1785714286)/(67/28)
+                            y=(67/28)*x-4,1785714286
+
+            <rect width="1000" height="1000" fill="white"/>
+        <circle cx="50" cy="50" r="50" stroke="green" stroke-width="0" fill="yellow" />
+        <line x1="30.3" y1="70" x2="2" y2="2" stroke-width="2" stroke="blue"/>
+        <line x1="27" x2="32" y1="67" y2="67" stroke-width="2" stroke="green"/>
+    -->
+</svg></svg>
