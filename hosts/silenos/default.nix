@@ -15,8 +15,10 @@ nixpkgs.lib.nixosSystem {
     # Import the previous configuration.nix we used,
     # so the old configuration file still takes effect
     ./boot.nix
+    ./kernelpkgs.nix
     ./configuration.nix
-    ./services.nix
+    ./mounts.nix
+    ./services
     ./users.nix
   ];
 }

@@ -23,6 +23,17 @@
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.registry = {
+    nixpkgs.to = {
+      type = "path";
+      path = pkgs.path;
+      narHash = builtins.readFile
+          (pkgs.runCommandLocal "get-nixpkgs-hash"
+            { nativeBuildInputs = [ pkgs.nix ]; }
+            "nix-hash --type sha256 --sri ${pkgs.path} > $out");
+    };
+  };
+
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -52,7 +63,8 @@
     #package = pkgs.trunk.hyprland;
     #enableNvidiaPatches = true;
   };
- 
+  
+  programs.gamemode.enable = true;
 
   # list packages installed in system profile. To search, run:
   # $ nix search wget
@@ -82,7 +94,7 @@
   # List services that you want to enable:
 
     # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = [ 1023 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -95,7 +107,15 @@
       powerManagement.finegrained = false;
 
       open = false;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
+        version = "555.42.02";
+        sha256_64bit = "sha256-k7cI3ZDlKp4mT46jMkLaIrc2YUx1lh1wj/J4SVSHWyk=";
+        sha256_aarch64 = lib.fakeSha256;
+        openSha256 = "sha256-rtDxQjClJ+gyrCLvdZlT56YyHQ4sbaL+d5tL4L4VfkA=";
+        settingsSha256 = "sha256-rtDxQjClJ+gyrCLvdZlT56YyHQ4sbaL+d5tL4L4VfkA=";
+        persistencedSha256 = lib.fakeSha256;
+
+      };
 
     };
 
@@ -130,6 +150,7 @@
     "steam-original"
     "steam-run"
     "xow_dongle-firmware"
+    "vscode"
   ];
 
   # Copy the NixOS configuration file and link it from the resulting system
