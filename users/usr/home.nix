@@ -25,7 +25,7 @@
   home.packages = with pkgs; [
     starship
     tmux
-    ungoogled-chromium
+    chromium
     grimblast
     alacritty
     #webcord-vencord
