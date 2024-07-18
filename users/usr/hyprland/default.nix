@@ -84,8 +84,8 @@ in {
         rounding = 5;
         blur = {
           enabled = true;
-          size = 5;
-          passes = 2;
+          size = 2;
+          passes = 1;
           vibrancy = 0.1696;
         };
       };
