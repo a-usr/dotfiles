@@ -9,6 +9,8 @@
     ./alacritty
     ./zsh
     ./starship
+    ./hyprlock
+    ./nixvim
   ];
 
   home.sessionVariables = {
@@ -40,21 +42,29 @@
 
     imagemagick
     ffmpeg
+    zip
+    unzip
 
     fd
     fzf
-    #power-profiles-daemon 
+
+    prismlauncher
+    #jdk
+    jdk17
+
     dart-sass
     sassc
     bun
-    vscodium
     
     papirus-icon-theme
     gnome3.adwaita-icon-theme
 
     ncspot
     bottom
-
+    
+    wine
+    rare
+    legendary-gl
 
     wf-recorder
     obs-studio

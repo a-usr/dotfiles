@@ -17,22 +17,17 @@ in
       "$mod" = "SUPER";
       bind =
         [
-          "ALT SHIFT, Left, hy3:movewindow, l"
-          "ALT SHIFT, Right, hy3:movewindow, r"
-          "ALT SHIFT, Up, hy3:movewindow, u"
-          "ALT SHIFT, Down, hy3:movewindow, d"
-          "ALT, Left, hy3:movefocus, l"
-          "ALT, Right, hy3:movefocus, r"
-          "ALT, Up, hy3:movefocus, u"
-          "ALT, Down, hy3:movefocus, d"
+          "$mod SHIFT, Left, hy3:movewindow, l"
+          "$mod SHIFT, Right, hy3:movewindow, r"
+          "$mod SHIFT, Up, hy3:movewindow, u"
+          "$mod SHIFT, Down, hy3:movewindow, d"
+          "$mod, Left, hy3:movefocus, l"
+          "$mod, Right, hy3:movefocus, r"
+          "$mod, Up, hy3:movefocus, u"
+          "$mod, Down, hy3:movefocus, d"
           "$mod, X, hy3:makegroup, h"
           "$mod SHIFT, X, hy3:makegroup, v"
-          "$mod, escape, exec, ags --toggle-window powermenu"
-          ", code:122, exec, pamixer -d 5"
-          ", code:123, exec, pamixer -i 5"
-          ", code:173, exec, playerctl previous"
-          ", code:171, exec, playerctl next"
-          ", code:172, exec, playerctl play-pause"
+          "$mod, escape, exec, ags --toggle-window powermenu" 
           "$mod, F, exec, firefox"
           ", Print, exec, grimblast copy area"
           "$mod, M, exit"
@@ -56,7 +51,15 @@ in
         ++ [
           ", F1, togglespecialworkspace, E"
         ];
-    
+        
+        bindi = [
+          ", code:122, exec, pamixer -d 5"
+          ", code:123, exec, pamixer -i 5"
+          ", code:173, exec, playerctl previous"
+          ", code:171, exec, playerctl next"
+          ", code:172, exec, playerctl play-pause"
+        ];
+
       exec-once = [
         "hyprpaper"
         "wl-paste --type text --watch cliphist store"
@@ -93,6 +96,7 @@ in
           "borderangle, 1, 8, default"
           "fade, 1, 7, default"
           "workspaces, 1, 6, default"
+          "specialWorkspace, 1, 3, default, slidevert"
         ];
       };
 
@@ -110,7 +114,7 @@ in
       input = {
         kb_layout = "de";
       };
-
+      debug.disable_logs = false;
       monitor = "Unknown-1, disable";
 
     }; 
