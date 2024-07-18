@@ -1,5 +1,9 @@
-{ pkgs, lib, config, ... }:
-let
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}: let
   app = "localhost";
   domain = "${app}";
   dataDir = "/srv/http/${domain}";
@@ -18,14 +22,14 @@ in {
       "php_admin_flag[log_errors]" = true;
       "catch_workers_output" = true;
     };
-    phpEnv."PATH" = lib.makeBinPath [ pkgs.php ];
+    phpEnv."PATH" = lib.makeBinPath [pkgs.php];
   };
   services.nginx = {
     user = app;
     enable = true;
     virtualHosts.${domain} = {
       locations."/" = {
-        root= dataDir;
+        root = dataDir;
         extraConfig = ''
           try_files $uri $uri/ =404;
         '';
@@ -49,7 +53,7 @@ in {
     isSystemUser = true;
     createHome = true;
     home = dataDir;
-    group  = app;
+    group = app;
   };
   users.groups.${app} = {};
   systemd.services.nginx.wantedBy = lib.mkForce [];

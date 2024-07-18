@@ -1,28 +1,30 @@
-{ pkgs, lib, config, ... }:
 {
+  pkgs,
+  lib,
+  config,
+  ...
+}: {
   services.power-profiles-daemon.enable = true;
   services.gvfs.enable = true;
-  
-# Enable the X11 windowing system.
+
+  # Enable the X11 windowing system.
   services.xserver = {
-    enable = true; 
+    enable = true;
     xkb.layout = "de";
   };
   services.displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      theme = "sddm-theme-astronaut";
-      package = pkgs.kdePackages.sddm;
-      extraPackages = [
-        pkgs.kdePackages.qt5compat
-      ];
+    enable = true;
+    wayland.enable = true;
+    theme = "sddm-theme-astronaut";
+    package = pkgs.kdePackages.sddm;
+    extraPackages = [
+      pkgs.kdePackages.qt5compat
+    ];
   };
 
   services.upower = {
     enable = true;
   };
-
-  
 
   # Configure keymap in X12
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -40,13 +42,13 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  
+
   services.kmscon = with pkgs; {
     enable = true;
-    fonts = [ 
+    fonts = [
       {
         name = "Hurmit Nerd Font Mono";
-        package = (nerdfonts.override { fonts = ["Hermit"]; });
+        package = nerdfonts.override {fonts = ["Hermit"];};
       }
     ];
     extraConfig = "xkb-layout=de";
@@ -65,7 +67,7 @@
       "php_admin_flag[log_errors]" = true;
       "catch_workers_output" = true;
     };
-    phpEnv."PATH" = lib.makeBinPath [ pkgs.php ];
+    phpEnv."PATH" = lib.makeBinPath [pkgs.php];
   };
 
   services.nginx = {
@@ -80,5 +82,5 @@
     };
   };
   systemd.services.nginx.wantedBy = lib.mkForce [];
-  systemd.services.nginx-config-reload.wantedBy = lib.mkForce [];<F12
+  systemd.services.nginx-config-reload.wantedBy = lib.mkForce [];
 }
