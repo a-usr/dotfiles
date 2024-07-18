@@ -1,4 +1,8 @@
-{nixpkgs, home-manager, ...}@inputs:
+{
+  nixpkgs,
+  home-manager,
+  ...
+} @ inputs:
 nixpkgs.lib.nixosSystem {
   specialArgs = {
     inherit inputs;
@@ -7,11 +11,11 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ./../../overlays/nixpkgs.nix
     home-manager.nixosModules.home-manager
-        {
-          home-manager.extraSpecialArgs = {inherit inputs;};
-          home-manager.useUserPackages = true;
-          home-manager.useGlobalPkgs = true;
-        }
+    {
+      home-manager.extraSpecialArgs = {inherit inputs;};
+      home-manager.useUserPackages = true;
+      home-manager.useGlobalPkgs = true;
+    }
     # Import the previous configuration.nix we used,
     # so the old configuration file still takes effect
     ./boot.nix

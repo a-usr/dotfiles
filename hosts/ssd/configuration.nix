@@ -1,19 +1,23 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
-{ config, lib, pkgs, unstable, inputs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      inputs.hyprland.nixosModules.default
-    ];
+  config,
+  lib,
+  pkgs,
+  unstable,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    inputs.hyprland.nixosModules.default
+  ];
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  }; 
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  };
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
@@ -26,11 +30,11 @@
   networking.hostName = "ssd"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
@@ -38,29 +42,24 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "de_DE.UTF-8";
   console = {
-  #   font = "Lat2-Terminus16";
+    #   font = "Lat2-Terminus16";
     keyMap = "de";
-  #   useXkbConfig = true; # use xkb.options in tty.
+    #   useXkbConfig = true; # use xkb.options in tty.
   };
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = ["Hermit"]; })
+    (nerdfonts.override {fonts = ["Hermit"];})
     (callPackage ../../nixpkgs/fonts/Phosphor.nix {})
-    ];
-
-  
-  
+  ];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
-  
- 
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.hyprland = {
     enable = true;
     #package = pkgs.trunk.hyprland;
     #enableNvidiaPatches = true;
   };
- 
 
   # list packages installed in system profile. To search, run:
   # $ nix search wget
@@ -89,12 +88,12 @@
 
   # List services that you want to enable:
 
-    # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  # Open ports in the firewall.
+  networking.firewall.allowedTCPPorts = [22];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  
+
   hardware = {
     nvidia = {
       modesetting.enable = true;
@@ -104,7 +103,6 @@
 
       open = false;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
-
     };
 
     opengl = {
@@ -116,7 +114,6 @@
     bluetooth = {
       enable = true;
       settings.General.Experimental = true;
-
     };
 
     xone = {
@@ -127,18 +124,18 @@
       enable = true;
     };
   };
-  
 
   services.xserver.videoDrivers = ["nvidia"];
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "nvidia-x11"
-    "nvidia-settings"
-    "spotify"
-    "steam"
-    "steam-original"
-    "steam-run"
-    "xow_dongle-firmware"
-  ];
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "nvidia-x11"
+      "nvidia-settings"
+      "spotify"
+      "steam"
+      "steam-original"
+      "steam-run"
+      "xow_dongle-firmware"
+    ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -162,6 +159,4 @@
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
-

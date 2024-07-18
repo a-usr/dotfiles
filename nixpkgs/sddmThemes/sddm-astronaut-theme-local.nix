@@ -1,5 +1,8 @@
-{ stdenv, fetchFromGitHub, pkgs }:
-
+{
+  stdenv,
+  fetchFromGitHub,
+  pkgs,
+}:
 stdenv.mkDerivation rec {
   pname = "sddm-theme-astronaut";
   version = "1";
@@ -8,7 +11,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/share/sddm/themes
     cp -aR $src $out/share/sddm/themes/sddm-theme-astronaut
   '';
-  buildInputs = [ pkgs.qt6.qt5compat pkgs.qt6.qtdeclarative pkgs.qt6.qtsvg];  
+  buildInputs = [pkgs.qt6.qt5compat pkgs.qt6.qtdeclarative pkgs.qt6.qtsvg];
   dontWrapQtApps = true;
 
   src = fetchTree {
@@ -16,5 +19,3 @@ stdenv.mkDerivation rec {
     path = "/home/usr/sddm-astronaut-theme";
   };
 }
-
-

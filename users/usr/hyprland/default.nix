@@ -1,8 +1,12 @@
-{ pkgs, home-manager, config, inputs, ...}:
-let
-  lastChar = str: builtins.substring ((builtins.stringLength str) -1) (builtins.stringLength str) str;
-in
 {
+  pkgs,
+  home-manager,
+  config,
+  inputs,
+  ...
+}: let
+  lastChar = str: builtins.substring ((builtins.stringLength str) - 1) (builtins.stringLength str) str;
+in {
   imports = [
     inputs.hyprland.homeManagerModules.default
   ];
@@ -27,8 +31,8 @@ in
           "$mod, Down, hy3:movefocus, d"
           "$mod, X, hy3:makegroup, h"
           "$mod SHIFT, X, hy3:makegroup, v"
-          "$mod, escape, exec, ags --toggle-window powermenu" 
-          "$mod, F, exec, firefox"
+          "$mod, escape, exec, ags --toggle-window powermenu"
+          "$mod, F, exec, chromium"
           ", Print, exec, grimblast copy area"
           "$mod, M, exit"
           "$mod, T, exec, alacritty"
@@ -42,23 +46,23 @@ in
           # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
           builtins.concatLists (builtins.genList (
               x: [
-                "$mod, ${lastChar (toString(x+1))}, workspace, ${toString (x + 1)}"
-                "$mod SHIFT, ${lastChar (toString (x+1))}, movetoworkspace, ${toString (x + 1)}"
+                "$mod, ${lastChar (toString (x + 1))}, workspace, ${toString (x + 1)}"
+                "$mod SHIFT, ${lastChar (toString (x + 1))}, movetoworkspace, ${toString (x + 1)}"
               ]
             )
-        10)
+            10)
         )
         ++ [
           ", F1, togglespecialworkspace, E"
         ];
-        
-        bindi = [
-          ", code:122, exec, pamixer -d 5"
-          ", code:123, exec, pamixer -i 5"
-          ", code:173, exec, playerctl previous"
-          ", code:171, exec, playerctl next"
-          ", code:172, exec, playerctl play-pause"
-        ];
+
+      bindi = [
+        ", code:122, exec, pamixer -d 5"
+        ", code:123, exec, pamixer -i 5"
+        ", code:173, exec, playerctl previous"
+        ", code:171, exec, playerctl next"
+        ", code:172, exec, playerctl play-pause"
+      ];
 
       exec-once = [
         "hyprpaper"
@@ -88,7 +92,7 @@ in
 
       animations = {
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-        
+
         animation = [
           "windows, 1, 5, myBezier"
           "windowsOut, 1, 5, default, popin 80%"
@@ -116,7 +120,6 @@ in
       };
       debug.disable_logs = false;
       monitor = "Unknown-1, disable";
-
-    }; 
+    };
   };
 }

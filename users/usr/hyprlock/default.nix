@@ -1,10 +1,8 @@
-{ inputs, ... }: 
-{
+{inputs, ...}: {
   programs.hyprlock = {
-    enable=true;
+    enable = true;
     #package = inputs.hyprlock.packages.x86_64-linux.hyprlock;
     settings = {
-      
       "background" = {
         monitor = "";
         path = "~/.config/hypr/hyprpapers/wallpaper.png";

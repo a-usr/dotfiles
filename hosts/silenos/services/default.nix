@@ -1,39 +1,36 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ./nginx.nix
   ];
   services = {
     power-profiles-daemon.enable = true;
     gvfs.enable = true;
-    
-  # Enable the X11 windowing system.
+
+    # Enable the X11 windowing system.
     xserver = {
-      enable = true; 
+      enable = true;
       xkb.layout = "de";
     };
     displayManager.sddm = {
-        enable = true;
-        wayland.enable = true;
-        theme = "sddm-theme-astronaut";
-        package = pkgs.kdePackages.sddm;
-        extraPackages = [
-          pkgs.kdePackages.qt5compat
-        ];
+      enable = true;
+      wayland.enable = true;
+      theme = "sddm-theme-astronaut";
+      package = pkgs.kdePackages.sddm;
+      extraPackages = [
+        pkgs.kdePackages.qt5compat
+      ];
     };
-  
+
     upower = {
       enable = true;
     };
-  
-    
-  
+
     # Configure keymap in X12
     # xserver.xkb.options = "eurosign:e,caps:escape";
-  
+
     # Enable CUPS to print documents.
     # printing.enable = true;
-  
+
     # Enable sound.
     pipewire = {
       enable = true;
@@ -41,9 +38,9 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-  
+
     # Enable the OpenSSH daemon.
-    openssh = { 
+    openssh = {
       enable = true;
       ports = [1023];
     };
@@ -66,17 +63,16 @@
         };
       };
     };
-    
+
     kmscon = with pkgs; {
       enable = true;
-      fonts = [ 
+      fonts = [
         {
           name = "Hurmit Nerd Font Mono";
-          package = (nerdfonts.override { fonts = ["Hermit"]; });
+          package = nerdfonts.override {fonts = ["Hermit"];};
         }
       ];
-     extraConfig = "xkb-layout=de";
+      extraConfig = "xkb-layout=de";
     };
-
   };
 }
