@@ -45,6 +45,8 @@
     brightnessctl
     gvfs
 
+    alejandra
+
     imagemagick
     ffmpeg
     zip
@@ -60,6 +62,7 @@
     dart-sass
     sassc
     bun
+    libnotify
 
     papirus-icon-theme
     gnome3.adwaita-icon-theme
