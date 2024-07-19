@@ -10,6 +10,7 @@
     xserver = {
       enable = true;
       xkb.layout = "de";
+      excludePackages = [pkgs.xterm];
     };
     displayManager.sddm = {
       enable = true;
