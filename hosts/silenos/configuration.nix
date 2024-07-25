@@ -82,6 +82,7 @@
     (qt6.callPackage ../../nixpkgs/sddmThemes/sddm-astronaut-theme.nix {})
     spotify
     pamixer
+    inputs.niqspkgs.packages."x86_64-linux".bibata-hyprcursor
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

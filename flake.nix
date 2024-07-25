@@ -7,6 +7,9 @@
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     trunk.url = "github:NixOS/nixpkgs";
 
+    niqspkgs.url = "github:diniamo/niqspkgs";
+    nixGaming.url = "github:fufexan/nix-gaming";
+
     ags.url = "github:Aylur/ags";
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
@@ -23,6 +26,7 @@
       url = "github:nix-community/nixvim?ref=nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprpicker.url = "github:hyprwm/hyprpicker";
 
