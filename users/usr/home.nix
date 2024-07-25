@@ -73,6 +73,7 @@
     wine
     rare
     legendary-gl
+    #inputs.nixGaming.packages.x86_64-linux.viper
 
     wf-recorder
     obs-studio

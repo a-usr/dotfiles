@@ -75,6 +75,9 @@ in {
         "fullscreen, title:(HELLDIVERS™ 2)"
         "fullscreen, title:(Titanfall 2)"
       ];
+      windowrulev2 = [
+        "workspace special:E silent, class:(vesktop)"
+      ];
 
       general = {
         layout = "hy3";
