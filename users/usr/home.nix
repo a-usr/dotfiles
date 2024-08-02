@@ -77,6 +77,9 @@
 
     wf-recorder
     obs-studio
+    pavucontrol
+    easyeffects
+    qpwgraph
   ];
   programs = {
     tmux = {

@@ -82,6 +82,7 @@ in {
       general = {
         layout = "hy3";
       };
+      cursor.no_hardware_cursors = false;
 
       decoration = {
         rounding = 5;

@@ -65,6 +65,11 @@
       };
     };
 
+    avahi = {
+      enable = true;
+      nssmdns = true;
+      openFirewall = true;
+    };
     kmscon = with pkgs; {
       enable = true;
       fonts = [

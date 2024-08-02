@@ -18,7 +18,7 @@
 
   users.users.usr = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "localhost"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager" "localhost" "scanner" "lp"]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
   home-manager.users.usr = import ./home.nix;
