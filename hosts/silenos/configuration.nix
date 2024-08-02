@@ -137,7 +137,12 @@
     xpadneo = {
       enable = true;
     };
+    sane = {
+      enable = true;
+      extraBackends = [pkgs.sane-airscan pkgs.utsushi];
+    };
   };
+  services.udev.packages = [pkgs.utsushi];
 
   services.xserver.videoDrivers = ["nvidia"];
   nixpkgs.config.allowUnfreePredicate = pkg:

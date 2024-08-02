@@ -12,8 +12,11 @@
 
     ags.url = "github:Aylur/ags";
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    aquamarine.url = "github:hyprwm/aquamarine"; #"/07eb70afb131a4450aa01f5b488228c4cce6892b";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland/?submodules=1";
+    hyprland.inputs.nixpkgs.follows = "unstable";
+    hyprland.inputs.aquamarine.follows = "aquamarine";
+
     hyprlock.url = "github:hyprwm/Hyprlock";
     hyprlock.inputs.nixpkgs.follows = "nixpkgs";
     hy3 = {
