@@ -83,6 +83,7 @@
     spotify
     pamixer
     inputs.niqspkgs.packages."x86_64-linux".bibata-hyprcursor
+    nix-output-monitor
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
