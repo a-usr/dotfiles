@@ -77,7 +77,7 @@
 
     wf-recorder
     obs-studio
-    pavucontrol
+    pwvucontrol
     easyeffects
     qpwgraph
   ];
