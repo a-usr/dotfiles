@@ -1,6 +1,6 @@
 {...}: {
   programs.foot = {
-    enable = false;
+    enable = true;
     settings = {
       main = {
         font = "CaskaydiaCove Nerd Font Mono:Regular";
