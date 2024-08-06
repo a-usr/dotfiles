@@ -5,7 +5,7 @@
 }: {
   programs.helix = {
     enable = true;
-    package = inputs.helix.packages.helix;
+    package = inputs.helix.packages.hlix;
     extraPackages = [pkgs.nixd];
     settings = {};
     languages = {
