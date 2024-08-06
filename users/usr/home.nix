@@ -12,6 +12,7 @@
     ./ags
     ./gtk
     ./alacritty
+    ./foot
     ./zsh
     ./starship
     ./hyprlock
