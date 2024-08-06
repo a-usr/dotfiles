@@ -1,5 +1,5 @@
 {
-  description = "A simple NixOS flake";
+  description = "A shrimple NixOS flake";
 
   inputs = {
     # NixOS official package source, using the nixos-24.05 branch here
@@ -29,6 +29,8 @@
       url = "github:nix-community/nixvim?ref=nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    helix.url = "github:helix-editor/helix";
 
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprpicker.url = "github:hyprwm/hyprpicker";
