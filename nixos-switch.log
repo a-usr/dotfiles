@@ -22,5 +22,11 @@ error:
 
        (stack trace truncated; use '--show-trace' to show the full trace)
 
-       error: The option `home-manager.users.usr.programs.helix.enabled' does not exist. Definition values:
-       - In `/nix/store/y6mak8zdlc96gn20yx2c8r3wkj3a2c26-source/users/usr/helix': true
+       error: attribute 'helix' missing
+
+       at /nix/store/6b38gw3ryggmh4wqr17vda4fsziz02yb-source/users/usr/helix/default.nix:8:15:
+
+            7|     enable = true;
+            8|     package = inputs.helix.packages.helix;
+             |               ^
+            9|     extraPackages = [pkgs.nixd];
