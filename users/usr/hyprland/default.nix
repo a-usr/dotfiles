@@ -35,7 +35,7 @@ in {
           "$mod, F, exec, chromium"
           ", Print, exec, grimblast copy area"
           "$mod, M, exit"
-          "$mod, T, exec, alacritty"
+          "$mod, T, exec, foot"
           "$mod, Q, killactive"
           "ALT, space, exec, ags --toggle-window launcher"
           "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(wl-copy) >(swappy -f -)"
