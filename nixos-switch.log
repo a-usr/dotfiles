@@ -22,11 +22,11 @@ error:
 
        (stack trace truncated; use '--show-trace' to show the full trace)
 
-       error: attribute 'helix' missing
+       error: attribute 'hlix' missing
 
-       at /nix/store/6b38gw3ryggmh4wqr17vda4fsziz02yb-source/users/usr/helix/default.nix:8:15:
+       at /nix/store/jzvnjr46xpg9kbfdx4qfdagm0kx2g3my-source/users/usr/helix/default.nix:8:15:
 
             7|     enable = true;
-            8|     package = inputs.helix.packages.helix;
+            8|     package = inputs.helix.packages.hlix;
              |               ^
             9|     extraPackages = [pkgs.nixd];
