@@ -4,7 +4,7 @@
   ...
 }: {
   programs.helix = {
-    enabled = true;
+    enable = true;
     package = inputs.helix.packages.helix;
     extraPackages = [pkgs.nixd];
     settings = {};

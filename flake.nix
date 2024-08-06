@@ -1,5 +1,5 @@
 {
-  description = "A simple NixOS flake";
+  description = "A shrimple NixOS flake";
 
   inputs = {
     # NixOS official package source, using the nixos-24.05 branch here
