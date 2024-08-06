@@ -5,7 +5,7 @@
 }: {
   programs.helix = {
     enable = true;
-    package = inputs.helix.packages.hlix;
+    package = inputs.helix.packages.x86_64-linux.helix;
     extraPackages = [pkgs.nixd];
     settings = {};
     languages = {
