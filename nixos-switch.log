@@ -1,0 +1,26 @@
+warning: Git tree '/etc/nixos' is dirty
+building the system configuration...
+warning: Git tree '/etc/nixos' is dirty
+error:
+       … while calling the 'head' builtin
+
+         at /nix/store/l0992b1shksi7k8w1x6wzi61zbs48vck-source/lib/attrsets.nix:1575:11:
+
+         1574|         || pred here (elemAt values 1) (head values) then
+         1575|           head values
+             |           ^
+         1576|         else
+
+       … while evaluating the attribute 'value'
+
+         at /nix/store/l0992b1shksi7k8w1x6wzi61zbs48vck-source/lib/modules.nix:809:9:
+
+          808|     in warnDeprecation opt //
+          809|       { value = builtins.addErrorContext "while evaluating the option `${showOption loc}':" value;
+             |         ^
+          810|         inherit (res.defsFinal') highestPrio;
+
+       (stack trace truncated; use '--show-trace' to show the full trace)
+
+       error: The option `home-manager.users.usr.programs.helix.enabled' does not exist. Definition values:
+       - In `/nix/store/y6mak8zdlc96gn20yx2c8r3wkj3a2c26-source/users/usr/helix': true

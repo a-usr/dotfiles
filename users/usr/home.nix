@@ -17,6 +17,7 @@
     ./starship
     ./hyprlock
     ./nixvim
+    ./helix
   ];
 
   home.sessionVariables = {
