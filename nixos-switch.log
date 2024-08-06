@@ -1,9 +1,60 @@
 warning: Git tree '/etc/nixos' is dirty
+[K[K[K[K[K[Kwarning: updating lock file '/etc/nixos/flake.lock':
+• Updated input 'hyprland':
+    'git+https://github.com/hyprwm/Hyprland/?ref=refs/heads/main&rev=b0a70f63e3865eaa77f0b78a04b230aa583bc95c' (2024-08-06)
+  → 'git+https://github.com/hyprwm/Hyprland/?ref=refs/heads/main&rev=b0a70f63e3865eaa77f0b78a04b230aa583bc95c' (2024-08-06)
+warning: Git tree '/etc/nixos' is dirty
 building the system configuration...
 warning: Git tree '/etc/nixos' is dirty
-activating the configuration...
-setting up /etc...
-reloading user units for usr...
-restarting sysinit-reactivation.target
-restarting the following units: home-manager-usr.service
-the following new units were started: sysinit-reactivation.target, systemd-tmpfiles-resetup.service
+these 30 derivations will be built:
+  /nix/store/fyj4rk961pihcl9w6zymj17j91bk92d4-hyprland-0.41.2+date=2024-08-06_b0a70f6.drv
+  /nix/store/9zc7l2qby7jr4jklq3mpf5gbjkvhi3v6-xdg-desktop-portal-hyprland-1.3.3+date=2024-07-30_7f2a77d.drv
+  /nix/store/yqqcn8y41h1q1g2qyxwv6sgf55yavs7z-system-path.drv
+  /nix/store/21f998w6qag0bg4kddngfbkpxqqhcqv8-dbus-1.drv
+  /nix/store/mmgzfqhk6fdz95829w8r1xv8fsxqszvf-X-Restart-Triggers-dbus.drv
+  /nix/store/hyavxfqbwkkmcc7whlf5484rd6hrfz1c-unit-dbus.service.drv
+  /nix/store/25y5gy7l9886idix7j64mv2zz2zpa1x5-user-units.drv
+  /nix/store/8z696agda3gmw0zhkrnd068dri3qfjxb-desktops.drv
+  /nix/store/4m8rxmc686mk8w8nbfizadxxc05r4qib-set-environment.drv
+  /nix/store/32sjp007rkp2mfbicybs5hsvb8g51zmr-etc-profile.drv
+  /nix/store/czd869c3xm22hp95giy3kd3v4b7ydfqn-hy3-hl0.41.2.drv
+  /nix/store/gf16jrxrlarx8qs3z5aimy8r03j54vrx-hm_hyprhyprland.conf.drv
+  /nix/store/mg6yz8zih4kcjzr2fm6gq88pp40n7xk0-home-manager-path.drv
+  /nix/store/r0y8nqln7mhb2qj4ghd69imqhxj8pfbz-hm_fontconfigconf.d10hmfonts.conf.drv
+  /nix/store/3v12p0r3blrjc6xcr72kskspxkid7sni-home-manager-files.drv
+  /nix/store/6vlszyjn2rqa89qql5w2ggw0sq3mxaqc-system-generators.drv
+  /nix/store/lj6y3r5v12ivicqdmzkygx64g6nac017-etc-pam-environment.drv
+  /nix/store/myr4b30hxxzzx47vsny6iasnqhhk70c8-user-environment.drv
+  /nix/store/p5wqkggvldiy1a8afjv8pf2j0asja3yr-system-shutdown.drv
+  /nix/store/pg15al9k95ckp7bkva9s4rdaha0y8cmc-sddm.conf.drv
+  /nix/store/frs4vnvrv0fj8lbayx7iy9sik30w5f8b-activation-script.drv
+  /nix/store/gd8xbjk93fygy2x2dbmfrgrkir5gli9w-home-manager-generation.drv
+  /nix/store/7f4cqvvdcp439zwv9bl9f7l4agh8qsr1-unit-home-manager-usr.service.drv
+  /nix/store/d7a0d728c3ccsfpjpgxl9jc5wwqgwxi2-unit-dbus.service.drv
+  /nix/store/h2kdbjawhip58mvd3m0gzl1anq4n5qzf-X-Restart-Triggers-polkit.drv
+  /nix/store/kj237pl6jn80s1i2zm4qayfk62g0hkxm-unit-polkit.service.drv
+  /nix/store/pmgmq0qksv6ygn4xq13f3p9vmpcyp1jz-system-units.drv
+  /nix/store/yc5qlnvfiw14qi44q77qg7li6nfd7yiz-etc-zshenv.drv
+  /nix/store/jb368l3m6h2s9c3vfjm45da67z75j8jn-etc.drv
+  /nix/store/5bdic2pxwxnni04wl3jznacg25lv656l-nixos-system-silenos-24.05.20240804.8b5b672.drv
+building '/nix/store/fyj4rk961pihcl9w6zymj17j91bk92d4-hyprland-0.41.2+date=2024-08-06_b0a70f6.drv'...
+error: builder for '/nix/store/fyj4rk961pihcl9w6zymj17j91bk92d4-hyprland-0.41.2+date=2024-08-06_b0a70f6.drv' failed with exit code 1;
+       last 10 log lines:
+       > --   Found xcb-errors, version 1.0.1
+       > -- SYSTEMD support is requested (NO_SYSTEMD not defined)...
+       > -- Setting precompiled headers
+       > -- Setting link libraries
+       > -- Checking for module 'hyprutils>=0.1.1'
+       > --   Found hyprutils, version 0.2.1
+       > -- Checking for modules 'tomlplusplus;hyprutils>=0.1.1'
+       > --   Found tomlplusplus, version 3.4.0
+       > --   Found hyprutils, version 0.2.1
+       > -- Configuring incomplete, errors occurred!
+       For full logs, run 'nix log /nix/store/fyj4rk961pihcl9w6zymj17j91bk92d4-hyprland-0.41.2+date=2024-08-06_b0a70f6.drv'.
+error: 1 dependencies of derivation '/nix/store/frs4vnvrv0fj8lbayx7iy9sik30w5f8b-activation-script.drv' failed to build
+error: 1 dependencies of derivation '/nix/store/8z696agda3gmw0zhkrnd068dri3qfjxb-desktops.drv' failed to build
+error: 1 dependencies of derivation '/nix/store/mg6yz8zih4kcjzr2fm6gq88pp40n7xk0-home-manager-path.drv' failed to build
+error: 1 dependencies of derivation '/nix/store/czd869c3xm22hp95giy3kd3v4b7ydfqn-hy3-hl0.41.2.drv' failed to build
+error: 1 dependencies of derivation '/nix/store/yqqcn8y41h1q1g2qyxwv6sgf55yavs7z-system-path.drv' failed to build
+error: 1 dependencies of derivation '/nix/store/9zc7l2qby7jr4jklq3mpf5gbjkvhi3v6-xdg-desktop-portal-hyprland-1.3.3+date=2024-07-30_7f2a77d.drv' failed to build
+error: 1 dependencies of derivation '/nix/store/5bdic2pxwxnni04wl3jznacg25lv656l-nixos-system-silenos-24.05.20240804.8b5b672.drv' failed to build
