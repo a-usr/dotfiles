@@ -1,22 +1,30 @@
 warning: Git tree '/etc/nixos' is dirty
-building the system configuration...
-warning: Git tree '/etc/nixos' is dirty
-these 6 derivations will be built:
-  /nix/store/70spqnyhv8lfdhwmar4c1dhdfj8jwy74-nixos.conf.drv
-  /nix/store/xv3p7p3lypxngb2840igp7l5rldbppan-X-Restart-Triggers-systemd-modules-load.drv
-  /nix/store/q3373sfs76xdszkzpis5k9n6cyglm0hk-unit-systemd-modules-load.service.drv
-  /nix/store/wsa6nmrcf8pwdmsfdj6khlb8hwkf1j0h-system-units.drv
-  /nix/store/9jczvx65xacn5kv2i8gkasxizn6ly8vd-etc.drv
-  /nix/store/3bmhq7yvx0zs8ixdicyj764wvf40iny1-nixos-system-silenos-24.05.20240805.883180e.drv
-building '/nix/store/70spqnyhv8lfdhwmar4c1dhdfj8jwy74-nixos.conf.drv'...
-building '/nix/store/xv3p7p3lypxngb2840igp7l5rldbppan-X-Restart-Triggers-systemd-modules-load.drv'...
-building '/nix/store/q3373sfs76xdszkzpis5k9n6cyglm0hk-unit-systemd-modules-load.service.drv'...
-building '/nix/store/wsa6nmrcf8pwdmsfdj6khlb8hwkf1j0h-system-units.drv'...
-building '/nix/store/9jczvx65xacn5kv2i8gkasxizn6ly8vd-etc.drv'...
-building '/nix/store/3bmhq7yvx0zs8ixdicyj764wvf40iny1-nixos-system-silenos-24.05.20240805.883180e.drv'...
-stopping the following units: systemd-modules-load.service
-activating the configuration...
-setting up /etc...
-reloading user units for usr...
-restarting sysinit-reactivation.target
-starting the following units: systemd-modules-load.service
+error:
+       … while calling the 'seq' builtin
+
+         at /nix/store/79j6vc975md1w3f2fgli3xw657zyxxyc-source/lib/modules.nix:322:18:
+
+          321|         options = checked options;
+          322|         config = checked (removeAttrs config [ "_module" ]);
+             |                  ^
+          323|         _module = checked (config._module);
+
+       … while evaluating a branch condition
+
+         at /nix/store/79j6vc975md1w3f2fgli3xw657zyxxyc-source/lib/modules.nix:261:9:
+
+          260|       checkUnmatched =
+          261|         if config._module.check && config._module.freeformType == null && merged.unmatchedDefns != [] then
+             |         ^
+          262|           let
+
+       (stack trace truncated; use '--show-trace' to show the full trace)
+
+       error: undefined variable 'config'
+
+       at /nix/store/j7cjsv6qqmjwrk20mjqxpxnn24nyiyqr-source/hosts/silenos/boot.nix:3:32:
+
+            2|   boot = {
+            3|     extraModulePackages = with config.boot.kernelPackages; [v4l2loopback.out];
+             |                                ^
+            4|     kernelModules = ["v4l2loopback"];
