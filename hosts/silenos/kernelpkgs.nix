@@ -1,3 +1,3 @@
 {pkgs, ...}: {
-  boot.kernelPackages = pkgs.unstable.linuxPackages;
+  boot.kernelPackages = pkgs.trunk.linuxPackages;
 }
