@@ -1,13 +1,15 @@
 {...}: {
-  boot.loader = {
+  boot = {
     kernelModules = ["v4l2loopback"];
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/efi";
-    };
-    systemd-boot = {
-      enable = true;
-      netbootxyz.enable = true;
+    loader = {
+      efi = {
+        canTouchEfiVariables = true;
+        efiSysMountPoint = "/efi";
+      };
+      systemd-boot = {
+        enable = true;
+        netbootxyz.enable = true;
+      };
     };
   };
 }
