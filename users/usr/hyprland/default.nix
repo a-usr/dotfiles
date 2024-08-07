@@ -94,6 +94,10 @@ in {
         };
       };
 
+      render = {
+        explicit_sync = true;
+        explicit_sync_kms = true;
+      };
       animations = {
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
 
