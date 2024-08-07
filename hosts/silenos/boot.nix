@@ -1,5 +1,6 @@
 {...}: {
   boot = {
+    extraModulePackages = with config.boot.kernelPackages; [v4l2loopback.out];
     kernelModules = ["v4l2loopback"];
     loader = {
       efi = {
