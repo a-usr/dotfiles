@@ -110,7 +110,7 @@
       powerManagement.finegrained = false;
 
       open = false;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
 
     opengl = {
