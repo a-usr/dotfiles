@@ -1,26 +1,25 @@
 warning: Git tree '/etc/nixos' is dirty
-building the system configuration...
-warning: Git tree '/etc/nixos' is dirty
-these 8 derivations will be built:
-  /nix/store/bspjws8plh1n2la6h4iaw0xprk42w01v-hm_hyprhyprland.conf.drv
-  /nix/store/01kg2pkkp64dc40ph6g5252gskz16phw-activation-script.drv
-  /nix/store/nhjvxg8q9zywb0aa2rg5liag91i0vqxw-home-manager-files.drv
-  /nix/store/67ni7h2wvhnipxd99nxld0ydfw6qc50k-home-manager-generation.drv
-  /nix/store/1i10k9skhig5ymc2zxp4av06ycdh9z8h-unit-home-manager-usr.service.drv
-  /nix/store/8wdnwr2a11y4a0s6lc72lpjd15izfppy-system-units.drv
-  /nix/store/0h3ynd246gvx7ki2mcd38jxr2gazv3wd-etc.drv
-  /nix/store/ld4xbdr02y3s3vsw02l87g9ydfcymp9k-nixos-system-silenos-24.05.20240805.883180e.drv
-building '/nix/store/bspjws8plh1n2la6h4iaw0xprk42w01v-hm_hyprhyprland.conf.drv'...
-building '/nix/store/01kg2pkkp64dc40ph6g5252gskz16phw-activation-script.drv'...
-building '/nix/store/nhjvxg8q9zywb0aa2rg5liag91i0vqxw-home-manager-files.drv'...
-building '/nix/store/67ni7h2wvhnipxd99nxld0ydfw6qc50k-home-manager-generation.drv'...
-building '/nix/store/1i10k9skhig5ymc2zxp4av06ycdh9z8h-unit-home-manager-usr.service.drv'...
-building '/nix/store/8wdnwr2a11y4a0s6lc72lpjd15izfppy-system-units.drv'...
-building '/nix/store/0h3ynd246gvx7ki2mcd38jxr2gazv3wd-etc.drv'...
-building '/nix/store/ld4xbdr02y3s3vsw02l87g9ydfcymp9k-nixos-system-silenos-24.05.20240805.883180e.drv'...
-activating the configuration...
-setting up /etc...
-reloading user units for usr...
-restarting sysinit-reactivation.target
-restarting the following units: home-manager-usr.service
-the following new units were started: sysinit-reactivation.target, systemd-tmpfiles-resetup.service
+error:
+       … while calling the 'seq' builtin
+
+         at /nix/store/79j6vc975md1w3f2fgli3xw657zyxxyc-source/lib/modules.nix:322:18:
+
+          321|         options = checked options;
+          322|         config = checked (removeAttrs config [ "_module" ]);
+             |                  ^
+          323|         _module = checked (config._module);
+
+       … while calling the 'throw' builtin
+
+         at /nix/store/79j6vc975md1w3f2fgli3xw657zyxxyc-source/lib/modules.nix:298:18:
+
+          297|                     ''
+          298|             else throw baseMsg
+             |                  ^
+          299|         else null;
+
+       error: The option `boot.loader.kernelModules' does not exist. Definition values:
+       - In `/nix/store/nc53ybmnj8xsls4z22y88snb0dvbndga-source/hosts/silenos/boot.nix':
+           [
+             "v4l2loopback"
+           ]
