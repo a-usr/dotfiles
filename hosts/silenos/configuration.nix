@@ -109,7 +109,7 @@
       powerManagement.enable = false;
       powerManagement.finegrained = false;
 
-      open = false;
+      open = true;
       package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
 
