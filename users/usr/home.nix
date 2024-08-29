@@ -77,6 +77,8 @@
     legendary-gl
     #inputs.nixGaming.packages.x86_64-linux.viper
 
+    flatpak # I hate myself for this
+
     wf-recorder
     obs-studio
     pwvucontrol
