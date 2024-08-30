@@ -59,7 +59,8 @@
 
     prismlauncher
     #jdk
-    jdk17
+    #jdk17
+    #jdk8
 
     dart-sass
     sassc
