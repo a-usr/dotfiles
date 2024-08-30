@@ -57,7 +57,7 @@
     fd
     fzf
 
-    prismlauncher
+    (prismlauncher.override {jdks = [pkgs.jdk21 pkgs.jdk17 pkgs.jdk8];})
     #jdk
     #jdk17
     #jdk8
