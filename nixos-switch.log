@@ -1,7 +1,10 @@
 warning: Git tree '/etc/nixos' is dirty
-building the system configuration...
-warning: Git tree '/etc/nixos' is dirty
-activating the configuration...
-setting up /etc...
-reloading user units for usr...
-restarting sysinit-reactivation.target
+[KSchwerwiegend: Konnte Remote-Referenz refs/heads/v0.42.0 nicht finden.
+[Kerror:
+       … while updating the lock file of flake 'git+file:///etc/nixos'
+
+       … while updating the flake input 'hyprland'
+
+       … while fetching the input 'git+https://github.com/hyprwm/Hyprland/?ref=v0.42.0'
+
+       error: program 'git' failed with exit code 128
