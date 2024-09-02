@@ -17,9 +17,9 @@
       type = "git";
       url = "https://github.com/hyprwm/Hyprland/";
       ref = "refs/tags/v0.42.0";
-      submodule = true;
+      submodules = true;
     }; #&ref=explicit-sync&rev=158bbaaf88764e2a1e19ca1e3a11af541374432e";
-    hyprland.inputs.nixpkgs.follows = "unstable";
+    #hyprland.inputs.nixpkgs.follows = "unstable";
     #hyprland.inputs.aquamarine.follows = "aquamarine";
 
     hyprlock.url = "github:hyprwm/Hyprlock";
