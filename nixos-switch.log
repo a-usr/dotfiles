@@ -1,10 +1,2 @@
 warning: Git tree '/etc/nixos' is dirty
-[KSchwerwiegend: Konnte Remote-Referenz refs/heads/tags/v0.42.0 nicht finden.
-[Kerror:
-       … while updating the lock file of flake 'git+file:///etc/nixos'
-
-       … while updating the flake input 'hyprland'
-
-       … while fetching the input 'git+https://github.com/hyprwm/Hyprland/?ref=tags/v0.42.0'
-
-       error: program 'git' failed with exit code 128
+error: hash 'tags/v0.42.0' has wrong length for hash type 'sha1'
