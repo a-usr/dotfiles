@@ -1,10 +1,12 @@
 warning: Git tree '/etc/nixos' is dirty
-[KSchwerwiegend: Konnte Remote-Referenz refs/heads/tags/v0.42.0 nicht finden.
-[Kerror:
-       … while updating the lock file of flake 'git+file:///etc/nixos'
+error:
+       … while evaluating flake input
 
-       … while updating the flake input 'hyprland'
+         at /nix/store/ghx376hfh7yxrknywyyd1dwy9hd53xi9-source/flake.nix:16:5:
 
-       … while fetching the input 'git+https://github.com/hyprwm/Hyprland/?ref=tags/v0.42.0'
+           15|     #aquamarine.url = "github:hyprwm/aquamarine"; #"/07eb70afb131a4450aa01f5b488228c4cce6892b";
+           16|     hyprland = {
+             |     ^
+           17|       type = "git";
 
-       error: program 'git' failed with exit code 128
+       error: unsupported Git input attribute 'submodule'
