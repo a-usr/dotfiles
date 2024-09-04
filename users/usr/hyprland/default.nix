@@ -37,6 +37,7 @@ in {
           "$mod, M, exit"
           "$mod, T, exec, alacritty"
           "$mod, Q, killactive"
+          "$mod, L, exec, hyprlock"
           "ALT, space, exec, ags --toggle-window launcher"
           "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(wl-copy) >(swappy -f -)"
           "SUPER_SHIFT, C, exec, cliphist list | wofi --show=dmenu | cliphist decode | wl-copy"
