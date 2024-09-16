@@ -1,26 +1,35 @@
 warning: Git tree '/etc/nixos' is dirty
 building the system configuration...
 warning: Git tree '/etc/nixos' is dirty
-these 8 derivations will be built:
-  /nix/store/h77k1p7kpgymq7s8r7dw9b28q7qqy19c-hm_hyprhyprland.conf.drv
-  /nix/store/76s6jarba2vh1d56lhl35dpn72m2iw2b-activation-script.drv
-  /nix/store/fbjx92ihagx6xblmk48mh8fhci4lphm3-home-manager-files.drv
-  /nix/store/ly6b0am5ls8jzanq8xihci9cyk81zjw7-home-manager-generation.drv
-  /nix/store/4k7pgz2p5s3fg0kzdg4yb3qxylwg62ax-unit-home-manager-usr.service.drv
-  /nix/store/xinc1zzppqj08q6r763j0mb4p0m88nlc-system-units.drv
-  /nix/store/xr1akpkiyd1jy036q3lyfwmr0vvdz5p9-etc.drv
-  /nix/store/5gxsr5f6c0bdxbvb05lh5qncaclx3k8v-nixos-system-silenos-24.05.20240830.6e99f2a.drv
-building '/nix/store/h77k1p7kpgymq7s8r7dw9b28q7qqy19c-hm_hyprhyprland.conf.drv'...
-building '/nix/store/76s6jarba2vh1d56lhl35dpn72m2iw2b-activation-script.drv'...
-building '/nix/store/fbjx92ihagx6xblmk48mh8fhci4lphm3-home-manager-files.drv'...
-building '/nix/store/ly6b0am5ls8jzanq8xihci9cyk81zjw7-home-manager-generation.drv'...
-building '/nix/store/4k7pgz2p5s3fg0kzdg4yb3qxylwg62ax-unit-home-manager-usr.service.drv'...
-building '/nix/store/xinc1zzppqj08q6r763j0mb4p0m88nlc-system-units.drv'...
-building '/nix/store/xr1akpkiyd1jy036q3lyfwmr0vvdz5p9-etc.drv'...
-building '/nix/store/5gxsr5f6c0bdxbvb05lh5qncaclx3k8v-nixos-system-silenos-24.05.20240830.6e99f2a.drv'...
-activating the configuration...
-setting up /etc...
-reloading user units for usr...
-restarting sysinit-reactivation.target
-restarting the following units: home-manager-usr.service
-the following new units were started: sysinit-reactivation.target, systemd-tmpfiles-resetup.service
+error:
+       … while calling the 'head' builtin
+
+         at /nix/store/1h99qq6970gkx3j0m9w4yrrl9y99y1nk-source/lib/attrsets.nix:1575:11:
+
+         1574|         || pred here (elemAt values 1) (head values) then
+         1575|           head values
+             |           ^
+         1576|         else
+
+       … while evaluating the attribute 'value'
+
+         at /nix/store/1h99qq6970gkx3j0m9w4yrrl9y99y1nk-source/lib/modules.nix:809:9:
+
+          808|     in warnDeprecation opt //
+          809|       { value = builtins.addErrorContext "while evaluating the option `${showOption loc}':" value;
+             |         ^
+          810|         inherit (res.defsFinal') highestPrio;
+
+       (stack trace truncated; use '--show-trace' to show the full trace)
+
+       error:
+       Failed assertions:
+       - users.users.usr.shell is set to fish, but
+       programs.fish.enable is not true. This will cause the fish
+       shell to lack the basic nix directories in its PATH and might make
+       logging in as that user impossible. You can fix it with:
+       programs.fish.enable = true;
+
+       If you know what you're doing and you are fine with the behavior,
+       set users.users.usr.ignoreShellProgramCheck = true;
+       instead.
