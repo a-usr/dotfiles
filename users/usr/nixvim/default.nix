@@ -3,7 +3,7 @@
 
   programs.nixvim = {
     enable = true;
-    defaultEditor = true;
+    #defaultEditor = true;
 
     clipboard.providers.wl-copy.enable = true;
     colorschemes.nord.enable = true;

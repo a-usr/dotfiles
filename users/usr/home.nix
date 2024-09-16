@@ -23,6 +23,7 @@
 
   home.sessionVariables = {
     XDG_CONFIG_HOME = "~/.config/";
+    EDITOR = "emacs";
   };
 
   home.packages = with pkgs; [
