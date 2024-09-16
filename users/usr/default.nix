@@ -24,6 +24,7 @@
   home-manager.users.usr = import ./home.nix;
 
   programs.zsh.enable = true;
+  programs.fish.enable = true;
   #nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
   #  "steam"
   #  "steam-original"
