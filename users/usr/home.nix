@@ -58,7 +58,7 @@
     fd
     fzf
     ripgrep
-    exa
+    eza
     nnn
 
     (prismlauncher.override {jdks = [pkgs.jdk21 pkgs.jdk17 pkgs.jdk8];})
