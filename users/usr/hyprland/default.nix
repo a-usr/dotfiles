@@ -35,7 +35,7 @@ in {
           "$mod, F, exec, chromium"
           ", Print, exec, grimblast copy area"
           "$mod, M, exit"
-          "$mod, T, exec, alacritty"
+          "$mod, T, exec, foot"
           "$mod, Q, killactive"
           "$mod, L, exec, hyprlock"
           "ALT, space, exec, ags --toggle-window launcher"
