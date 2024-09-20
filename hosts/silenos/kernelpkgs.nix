@@ -1,3 +1,3 @@
 {pkgs, ...}: {
-  boot.kernelPackages = pkgs.trunk.linuxPackages;
+  boot.kernelPackages = pkgs.master.linuxPackages;
 }

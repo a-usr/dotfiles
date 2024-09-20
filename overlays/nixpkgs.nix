@@ -4,11 +4,12 @@
       system = final.system;
       config = final.config;
     };
-    trunk = import inputs.trunk {
+    master = import inputs.trunk {
       system = final.system;
       config = final.config;
       overlays = [trunkoverlay];
     };
+
   };
 
   trunkoverlay = final: prev: {
@@ -25,5 +26,11 @@
     });
   };
 in {
-  nixpkgs.overlays = [nixpkgsoverlay];
+  nixpkgs.overlays = [
+    nixpkgsoverlay
+    (import (builtins.fetchTarball {
+      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+      sha256 = "0dx8qiki5c1p9g41i2r75fgxn9il6saxviakmgwp77xqbkkhd390";
+    }))
+  ];
 }
