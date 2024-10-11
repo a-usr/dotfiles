@@ -5,7 +5,6 @@
   config,
   lib,
   pkgs,
-  unstable,
   inputs,
   ...
 }: {
@@ -14,6 +13,7 @@
     ./hardware-configuration.nix
     inputs.hyprland.nixosModules.default
   ];
+
   xdg.portal = {
     enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
@@ -71,7 +71,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
-    neovim
     fontconfig
     git
     cliphist
@@ -84,6 +83,7 @@
     pamixer
     inputs.niqspkgs.packages."x86_64-linux".bibata-hyprcursor
     nix-output-monitor
+    neovim
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -110,12 +110,12 @@
       powerManagement.finegrained = false;
 
       open = false;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
     opengl = {
       enable = true;
-      driSupport = true;
+      #driSupport = true;
       driSupport32Bit = true;
     };
 

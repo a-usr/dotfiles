@@ -1,15 +1,21 @@
 {inputs, ...}: let
-  nixpkgsoverlay = final: prev: {
-    unstable = import inputs.unstable {
-      system = final.system;
-      config = final.config;
-    };
-    master = import inputs.trunk {
+  nixpkgsoverlay = final: prev: 
+  let
+    # unstablePkgs = import inputs.unstable {
+    #   system = final.system;
+    #   config = final.config;
+    # };
+    masterPkgs = import inputs.trunk {
       system = final.system;
       config = final.config;
       overlays = [trunkoverlay];
     };
-
+  in 
+  {
+  #   unstable = unstablePkgs;
+     master = masterPkgs;
+  #   mesa = unstablePkgs.mesa;
+  #
   };
 
   trunkoverlay = final: prev: {
@@ -25,12 +31,13 @@
       };
     });
   };
+
 in {
   nixpkgs.overlays = [
     nixpkgsoverlay
     (import (builtins.fetchTarball {
-      url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-      sha256 = "0dx8qiki5c1p9g41i2r75fgxn9il6saxviakmgwp77xqbkkhd390";
+      url = "https://github.com/nix-community/emacs-overlay/archive/bb242817e911f6.tar.gz";
+      sha256 = "0n10fx7d85pjv9gs5c8681vqglsl3sjn4jqdzk5yci4qzcgjq7kd";
     }))
   ];
 }

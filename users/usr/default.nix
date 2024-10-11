@@ -39,6 +39,6 @@
   };
   programs.gamescope = {
     enable = true;
-    package = pkgs.unstable.gamescope;
+    package = pkgs.gamescope;
   };
 }

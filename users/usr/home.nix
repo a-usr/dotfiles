@@ -17,13 +17,13 @@
     ./fish
     ./starship
     ./hyprlock
-    ./nixvim
+    ./nvim
     ./helix
   ];
 
   home.sessionVariables = {
     XDG_CONFIG_HOME = "~/.config/";
-    EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   home.packages = with pkgs; [
@@ -60,9 +60,15 @@
     fzf
     ripgrep
     eza
-    nnn
-    emacs
-
+    # (
+    #     pkgs.emacsWithPackagesFromPackageRequires {
+    #         packageElisp = "";
+    #         package = pkgs.emacs-pgtk;
+    #         extraEmacsPackages = epkgs: [
+    #             pkgs.ispell
+    #         ];
+    #     }
+    # ) 
     (prismlauncher.override {jdks = [pkgs.jdk21 pkgs.jdk17 pkgs.jdk8];})
     #jdk
     #jdk17
