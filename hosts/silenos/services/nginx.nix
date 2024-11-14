@@ -3,11 +3,13 @@
   lib,
   config,
   ...
-}: let
+}:
+let
   app = "localhost";
   domain = "${app}";
   dataDir = "/srv/http/${domain}";
-in {
+in
+{
   services.phpfpm.pools.${app} = {
     user = app;
     settings = {
@@ -22,7 +24,7 @@ in {
       "php_admin_flag[log_errors]" = true;
       "catch_workers_output" = true;
     };
-    phpEnv."PATH" = lib.makeBinPath [pkgs.php];
+    phpEnv."PATH" = lib.makeBinPath [ pkgs.php ];
   };
   services.nginx = {
     user = app;
@@ -55,10 +57,10 @@ in {
     home = dataDir;
     group = app;
   };
-  users.groups.${app} = {};
-  systemd.services.nginx.wantedBy = lib.mkForce [];
-  systemd.services.phpfpm-localhost.wantedBy = lib.mkForce [];
-  systemd.services."phpfpm.slice".wantedBy = lib.mkForce [];
-  systemd.services."phpfpm.target".wantedBy = lib.mkForce [];
-  systemd.services.nginx-config-reload.wantedBy = lib.mkForce [];
+  users.groups.${app} = { };
+  systemd.services.nginx.wantedBy = lib.mkForce [ ];
+  systemd.services.phpfpm-localhost.wantedBy = lib.mkForce [ ];
+  systemd.services."phpfpm.slice".wantedBy = lib.mkForce [ ];
+  systemd.services."phpfpm.target".wantedBy = lib.mkForce [ ];
+  systemd.services.nginx-config-reload.wantedBy = lib.mkForce [ ];
 }

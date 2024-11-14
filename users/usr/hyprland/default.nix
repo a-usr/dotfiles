@@ -57,7 +57,7 @@ in {
           ", F1, togglespecialworkspace, E"
         ];
 
-      bindi = [
+      bindli = [
         ", code:122, exec, pamixer -d 5"
         ", code:123, exec, pamixer -i 5"
         ", code:173, exec, playerctl previous"
