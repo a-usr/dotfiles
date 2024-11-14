@@ -7,7 +7,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -16,7 +17,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   networking.hostName = "silenos"; # Define your hostname.
@@ -26,16 +27,19 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.registry = {
     nixpkgs.to = {
       type = "path";
       path = pkgs.path;
-      narHash =
-        builtins.readFile
-        (pkgs.runCommandLocal "get-nixpkgs-hash"
-          {nativeBuildInputs = [pkgs.nix];}
-          "nix-hash --type sha256 --sri ${pkgs.path} > $out");
+      narHash = builtins.readFile (
+        pkgs.runCommandLocal "get-nixpkgs-hash" {
+          nativeBuildInputs = [ pkgs.nix ];
+        } "nix-hash --type sha256 --sri ${pkgs.path} > $out"
+      );
     };
   };
 
@@ -51,8 +55,8 @@
     #   useXkbConfig = true; # use xkb.options in tty.
   };
   fonts.packages = with pkgs; [
-    (nerdfonts.override {fonts = ["Hermit"];})
-    (callPackage ../../nixpkgs/fonts/Phosphor.nix {})
+    (nerdfonts.override { fonts = [ "Hermit" ]; })
+    (callPackage ../../nixpkgs/fonts/Phosphor.nix { })
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -78,7 +82,7 @@
     wl-clip-persist
     nix-prefetch-github
     kdePackages.qt5compat
-    (qt6.callPackage ../../nixpkgs/sddmThemes/sddm-astronaut-theme.nix {})
+    (qt6.callPackage ../../nixpkgs/sddmThemes/sddm-astronaut-theme.nix { })
     spotify
     pamixer
     inputs.niqspkgs.packages."x86_64-linux".bibata-hyprcursor
@@ -97,7 +101,10 @@
   # List services that you want to enable:
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [1023];
+  networking.firewall.allowedTCPPorts = [
+    1023
+    80
+  ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -113,10 +120,10 @@
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
-    opengl = {
+    graphics = {
       enable = true;
       #driSupport = true;
-      driSupport32Bit = true;
+      enable32Bit = true;
     };
 
     bluetooth = {
@@ -133,13 +140,17 @@
     };
     sane = {
       enable = true;
-      extraBackends = [pkgs.sane-airscan pkgs.utsushi];
+      extraBackends = [
+        pkgs.sane-airscan
+        pkgs.utsushi
+      ];
     };
   };
-  services.udev.packages = [pkgs.utsushi];
+  services.udev.packages = [ pkgs.utsushi ];
 
-  services.xserver.videoDrivers = ["nvidia"];
-  nixpkgs.config.allowUnfreePredicate = pkg:
+  services.xserver.videoDrivers = [ "nvidia" ];
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
     builtins.elem (lib.getName pkg) [
       "nvidia-x11"
       "nvidia-settings"
@@ -149,6 +160,7 @@
       "steam-run"
       "xow_dongle-firmware"
       "vscode"
+      "obsidian"
     ];
 
   # Copy the NixOS configuration file and link it from the resulting system

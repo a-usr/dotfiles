@@ -1,6 +1,4 @@
-{
-  configs,
-  lib,
+{ 
   pkgs,
   inputs,
   ...
@@ -80,7 +78,7 @@
     libnotify
 
     papirus-icon-theme
-    gnome3.adwaita-icon-theme
+    adwaita-icon-theme
 
     ncspot
     bottom
@@ -97,6 +95,7 @@
     pwvucontrol
     easyeffects
     qpwgraph
+    obsidian
   ];
   programs = {
     tmux = {
@@ -156,6 +155,9 @@
 
     waybar = {
       enable = false;
+    };
+    direnv = {
+      enable = true;
     };
   };
   home.stateVersion = "23.11";
