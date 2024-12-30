@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.starship = {
     enable = true;
 
@@ -31,7 +32,7 @@
         + "$php"
         + "[](fg:#212736 bg:#1d2230)"
         + "$time"
-        + "[ ](fg:#1d2230)"
+        + "[](fg:#1d2230)"
         + "$character";
 
       git_branch = {
@@ -77,8 +78,8 @@
       };
 
       character = {
-        success_symbol = "[ ](bright-green)";
-        error_symbol = "[ ](bright-red)";
+        success_symbol = "[](bright-green)";
+        error_symbol = "[](bright-red)";
       };
     };
   };

@@ -1,8 +1,9 @@
-{ 
+{
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./playerctl
     ./hyprland
@@ -12,11 +13,10 @@
     ./alacritty
     ./foot
     ./zsh
-    ./fish
+    ./nushell
     ./starship
     ./hyprlock
     ./nvim
-    ./helix
   ];
 
   home.sessionVariables = {
@@ -32,10 +32,13 @@
     alacritty
     #webcord-vencord
     vesktop
-    (nerdfonts.override {fonts = ["Hermit" "CascadiaCode"];})
+    nerd-fonts.hurmit
+    nerd-fonts.caskaydia-mono
+    nerd-fonts.caskaydia-cove
     #spicetify-cli
 
     xfce.thunar
+    yazi
     nordic
 
     grim
@@ -57,7 +60,6 @@
     fd
     fzf
     ripgrep
-    eza
     # (
     #     pkgs.emacsWithPackagesFromPackageRequires {
     #         packageElisp = "";
@@ -66,8 +68,14 @@
     #             pkgs.ispell
     #         ];
     #     }
-    # ) 
-    (prismlauncher.override {jdks = [pkgs.jdk21 pkgs.jdk17 pkgs.jdk8];})
+    # )
+    (prismlauncher.override {
+      jdks = [
+        pkgs.jdk21
+        pkgs.jdk17
+        pkgs.jdk8
+      ];
+    })
     #jdk
     #jdk17
     #jdk8
@@ -81,6 +89,7 @@
     adwaita-icon-theme
 
     ncspot
+    rmpc
     bottom
 
     wine
@@ -159,6 +168,10 @@
     direnv = {
       enable = true;
     };
+    eza.enable = true;
+
+    zoxide.enable = true;
+
   };
   home.stateVersion = "23.11";
 }

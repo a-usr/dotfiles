@@ -3,7 +3,8 @@
   lib,
   config,
   ...
-}: {
+}:
+{
   services.power-profiles-daemon.enable = true;
   services.gvfs.enable = true;
 
@@ -48,7 +49,7 @@
     fonts = [
       {
         name = "Hurmit Nerd Font Mono";
-        package = nerdfonts.override {fonts = ["Hermit"];};
+        package = nerd-fonts.hurmit;
       }
     ];
     extraConfig = "xkb-layout=de";
@@ -67,7 +68,7 @@
       "php_admin_flag[log_errors]" = true;
       "catch_workers_output" = true;
     };
-    phpEnv."PATH" = lib.makeBinPath [pkgs.php];
+    phpEnv."PATH" = lib.makeBinPath [ pkgs.php ];
   };
 
   services.nginx = {
@@ -81,6 +82,6 @@
       '';
     };
   };
-  systemd.services.nginx.wantedBy = lib.mkForce [];
-  systemd.services.nginx-config-reload.wantedBy = lib.mkForce [];
+  systemd.services.nginx.wantedBy = lib.mkForce [ ];
+  systemd.services.nginx-config-reload.wantedBy = lib.mkForce [ ];
 }

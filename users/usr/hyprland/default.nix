@@ -4,14 +4,18 @@
   config,
   inputs,
   ...
-}: let
-  lastChar = str: builtins.substring ((builtins.stringLength str) - 1) (builtins.stringLength str) str;
-in {
+}:
+let
+  lastChar =
+    str: builtins.substring ((builtins.stringLength str) - 1) (builtins.stringLength str) str;
+in
+{
   imports = [
     inputs.hyprland.homeManagerModules.default
   ];
 
   wayland.windowManager.hyprland = {
+    systemd.variables = [ "--all" ];
     #package = pkgs.trunk.hyprland;
     enable = true;
     plugins = [
@@ -45,13 +49,12 @@ in {
         ++ (
           # workspaces
           # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-          builtins.concatLists (builtins.genList (
-              x: [
-                "$mod, ${lastChar (toString (x + 1))}, workspace, ${toString (x + 1)}"
-                "$mod SHIFT, ${lastChar (toString (x + 1))}, movetoworkspace, ${toString (x + 1)}"
-              ]
-            )
-            10)
+          builtins.concatLists (
+            builtins.genList (x: [
+              "$mod, ${lastChar (toString (x + 1))}, workspace, ${toString (x + 1)}"
+              "$mod SHIFT, ${lastChar (toString (x + 1))}, movetoworkspace, ${toString (x + 1)}"
+            ]) 10
+          )
         )
         ++ [
           ", F1, togglespecialworkspace, E"
@@ -83,7 +86,10 @@ in {
       general = {
         layout = "hy3";
       };
-      cursor.no_hardware_cursors = false;
+      cursor = {
+        no_hardware_cursors = false;
+        allow_dumb_copy = true;
+      };
 
       decoration = {
         rounding = 5;
@@ -125,7 +131,9 @@ in {
         "NIXOS_OZONE_WL,1"
       ];
       input = {
-        kb_layout = "de";
+        kb_options = "compose:ralt";
+        kb_layout = "us";
+        accel_profile = "flat";
       };
       debug.disable_logs = false;
       monitor = "Unknown-1, disable";

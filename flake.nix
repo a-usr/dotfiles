@@ -10,10 +10,10 @@
     niqspkgs.url = "github:diniamo/niqspkgs";
     nixGaming.url = "github:fufexan/nix-gaming";
 
-    ags.url = "github:Aylur/ags";
+    ags.url = "github:Aylur/ags/v1.8.2";
 
     #aquamarine.url = "github:hyprwm/aquamarine"; #"/07eb70afb131a4450aa01f5b488228c4cce6892b";
-    hyprland.url = "git+https://github.com/hyprwm/hyprland?submodules=1&ref=refs/tags/v0.43.0";
+    hyprland.url = "github:hyprwm/hyprland/v0.44.0";
     #hyprland.inputs.nixpkgs.follows = "nixpkgs";
     #hyprland = {
     #  type = "git";
@@ -35,15 +35,13 @@
       # or "github:outfoxxed/hy3" to follow the development branch.
       # (you may encounter issues if you dont do the same for hyprland
       # )
-      ref = "hl0.43.0";
+      ref = "hl0.44.0";
       inputs.hyprland.follows = "hyprland";
     };
     nixvim = {
       url = "github:nix-community/nixvim?ref=nixos-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    helix.url = "github:helix-editor/helix";
 
     hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprpicker.url = "github:hyprwm/hyprpicker";

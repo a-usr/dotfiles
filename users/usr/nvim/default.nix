@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.neovim = {
-    package = pkgs.neovim-unwrapped;
+    # package = pkgs.neovim-unwrapped;
     enable = true;
     defaultEditor = true;
     viAlias = true;
@@ -9,20 +9,23 @@
     withPython3 = false;
     withRuby = false;
     extraPackages = with pkgs; [
+      chafa
+      neovim-remote
       lua
 
       # Language Servers
       rust-analyzer
       nixd
-      # nil
+      nil
       pyright
       bash-language-server
       lua-language-server
-      zls
+      fish-lsp
+      # zls
+
       typescript
       nodePackages_latest.typescript-language-server
-
-      kdePackages.qtdeclarative # QML formatter
+      vscode-langservers-extracted
 
       # Formatter
       python311Packages.black # Python formatter
@@ -38,9 +41,6 @@
       # Misc
       lazygit
       ripgrep
-      rustc
-      cargo
-      nodejs_22
       clang
       tree-sitter
       fd
