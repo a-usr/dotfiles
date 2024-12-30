@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./nginx.nix
   ];
@@ -9,8 +10,18 @@
     # Enable the X11 windowing system.
     xserver = {
       enable = true;
-      xkb.layout = "de";
-      excludePackages = [pkgs.xterm];
+      xkb.layout = "us";
+      excludePackages = [ pkgs.xterm ];
+      windowManager.i3 = {
+        # enable = true;
+        extraPackages = with pkgs; [
+          dmenu # application launcher most people use
+          i3status # gives you the default i3 status bar
+          i3lock # default i3 screen locker
+          i3blocks # if you are planning on using i3blocks over i3status
+        ];
+      };
+
     };
     displayManager.sddm = {
       enable = true;
@@ -25,6 +36,11 @@
     upower = {
       enable = true;
     };
+
+    udev.packages = with pkgs; [
+
+      (callPackage ../../../nixpkgs/by-name/wo/wooting-udev-rules/package.nix { })
+    ];
 
     # Configure keymap in X12
     # xserver.xkb.options = "eurosign:e,caps:escape";
@@ -43,7 +59,7 @@
     # Enable the OpenSSH daemon.
     openssh = {
       enable = true;
-      ports = [1023];
+      ports = [ 1023 ];
     };
     endlessh-go = {
       enable = true;
@@ -75,10 +91,19 @@
       fonts = [
         {
           name = "Hurmit Nerd Font Mono";
-          package = nerdfonts.override {fonts = ["Hermit"];};
+          package = nerd-fonts.hurmit;
+
         }
       ];
-      extraConfig = "xkb-layout=de";
+      extraConfig = "xkb-layout=us";
+    };
+    mopidy = {
+      enable = true;
+      extensionPackages = with pkgs; [
+        mopidy-spotify
+        mopidy-mpd
+        mopidy-mpris
+      ];
     };
   };
 }

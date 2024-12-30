@@ -51,11 +51,11 @@
   i18n.defaultLocale = "de_DE.UTF-8";
   console = {
     #   font = "Lat2-Terminus16";
-    keyMap = "de";
+    keyMap = "us";
     #   useXkbConfig = true; # use xkb.options in tty.
   };
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Hermit" ]; })
+    nerd-fonts.hurmit
     (callPackage ../../nixpkgs/fonts/Phosphor.nix { })
   ];
 
@@ -116,7 +116,7 @@
       powerManagement.enable = false;
       powerManagement.finegrained = false;
 
-      open = false;
+      open = true;
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
@@ -156,6 +156,7 @@
       "nvidia-settings"
       "spotify"
       "steam"
+      "steam-unwrapped"
       "steam-original"
       "steam-run"
       "xow_dongle-firmware"
