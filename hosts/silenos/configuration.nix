@@ -23,7 +23,10 @@
   networking.hostName = "silenos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true; # Easiest to use and most distros use this by default.
+  networking.networkmanager = {
+    enable = true; # Easiest to use and most distros use this by default.
+    plugins = lib.mkForce [ ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -74,6 +77,8 @@
   # list packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    file
+    ecryptfs
     wget
     fontconfig
     git
@@ -117,7 +122,7 @@
       powerManagement.finegrained = false;
 
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
 
     graphics = {
@@ -147,7 +152,14 @@
     };
   };
   services.udev.packages = [ pkgs.utsushi ];
-
+  virtualisation.vmVariant = {
+    # QEMU options to run hardware-accelerated VM
+    virtualisation.qemu.options = [
+      "-device virtio-vga-gl"
+      "-display gtk,gl=on,show-cursor=off"
+      "-audio pa,model=hda"
+    ];
+  };
   services.xserver.videoDrivers = [ "nvidia" ];
   nixpkgs.config.allowUnfreePredicate =
     pkg:
@@ -163,6 +175,16 @@
       "vscode"
       "obsidian"
     ];
+
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

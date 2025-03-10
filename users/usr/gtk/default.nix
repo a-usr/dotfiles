@@ -1,9 +1,10 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.nordic;
-      name = "Nordic";
+      package = pkgs.everforest-gtk-theme;
+      name = "Everforest-Dark";
     };
 
     iconTheme = {

@@ -3,11 +3,11 @@
   ...
 }:
 {
-  imports =
-    [
-    ];
+  imports = [
+  ];
 
   users.users.usr = {
+    initialPassword = "a";
     isNormalUser = true;
     extraGroups = [
       "wheel"

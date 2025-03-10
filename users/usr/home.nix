@@ -11,7 +11,6 @@
     ./ags
     ./gtk
     ./alacritty
-    ./foot
     ./zsh
     ./nushell
     ./starship
@@ -39,7 +38,7 @@
 
     xfce.thunar
     yazi
-    nordic
+    everforest-gtk-theme
 
     grim
     slurp
@@ -105,6 +104,8 @@
     easyeffects
     qpwgraph
     obsidian
+
+    wezterm
   ];
   programs = {
     tmux = {

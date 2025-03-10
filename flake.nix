@@ -12,19 +12,7 @@
 
     ags.url = "github:Aylur/ags/v1.8.2";
 
-    #aquamarine.url = "github:hyprwm/aquamarine"; #"/07eb70afb131a4450aa01f5b488228c4cce6892b";
-    hyprland.url = "github:hyprwm/hyprland/v0.44.0";
-    #hyprland.inputs.nixpkgs.follows = "nixpkgs";
-    #hyprland = {
-    #  type = "git";
-    #  url = "https://github.com/hyprwm/Hyprland/";
-    #  #ref = "refs/tags/v0.42.0";
-    #  rev = "9a09eac79b85c846e3a865a9078a3f8ff65a9259";
-    #  submodules = true;
-    #  #inputs.nixpkgs.follows = "unstable";
-    #}; #&ref=explicit-sync&rev=158bbaaf88764e2a1e19ca1e3a11af541374432e";
-    #hyprland.inputs.nixpkgs.follows = "unstable";
-    #hyprland.inputs.aquamarine.follows = "aquamarine";
+    hyprland.url = "github:hyprwm/hyprland/v0.47.0";
 
     hyprlock.url = "github:hyprwm/Hyprlock";
     hyprlock.inputs.nixpkgs.follows = "nixpkgs";
@@ -32,10 +20,7 @@
       type = "github";
       owner = "outfoxxed";
       repo = "Hy3"; # where {version} is the hyprland release version
-      # or "github:outfoxxed/hy3" to follow the development branch.
-      # (you may encounter issues if you dont do the same for hyprland
-      # )
-      ref = "hl0.44.0";
+      ref = "hl0.47.0";
       inputs.hyprland.follows = "hyprland";
     };
     nixvim = {

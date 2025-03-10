@@ -1,12 +1,14 @@
-{inputs, ...}: {
+{
+  ...
+}:
+{
   programs.hyprlock = {
     enable = true;
-    #package = inputs.hyprlock.packages.x86_64-linux.hyprlock;
     settings = {
       "background" = {
         monitor = "";
-        path = "~/.config/hypr/hyprpapers/wallpaper.png";
-        blur_passes = 3;
+        path = "~/.config/hypr/hyprpapers/AE86Trueno.jpg";
+        blur_passes = 1;
         contrast = 0.8916;
         brightness = 0.8172;
         vibrancy = 0.1696;

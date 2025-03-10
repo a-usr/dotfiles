@@ -39,7 +39,7 @@ in
           "$mod, F, exec, chromium"
           ", Print, exec, grimblast copy area"
           "$mod, M, exit"
-          "$mod, T, exec, foot"
+          "$mod, T, exec, wezterm"
           "$mod, Q, killactive"
           "$mod, L, exec, hyprlock"
           "ALT, space, exec, ags --toggle-window launcher"
@@ -88,7 +88,7 @@ in
       };
       cursor = {
         no_hardware_cursors = false;
-        allow_dumb_copy = true;
+        use_cpu_buffer = true;
       };
 
       decoration = {
