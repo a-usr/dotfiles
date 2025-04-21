@@ -44,7 +44,7 @@
     slurp
     wayshot
     inputs.hyprpicker.packages."x86_64-linux".hyprpicker
-    swappy
+    satty
 
     brightnessctl
     gvfs
@@ -104,6 +104,8 @@
     easyeffects
     qpwgraph
     obsidian
+
+    lutris
 
     wezterm
   ];
@@ -169,7 +171,10 @@
     direnv = {
       enable = true;
     };
-    eza.enable = true;
+    eza = {
+      enable = true;
+      enableNushellIntegration = false;
+    };
 
     zoxide.enable = true;
 

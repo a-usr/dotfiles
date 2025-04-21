@@ -23,15 +23,18 @@
       };
 
     };
-    displayManager.sddm = {
-      enable = true;
-      wayland.enable = true;
-      theme = "sddm-theme-astronaut";
-      package = pkgs.kdePackages.sddm;
-      extraPackages = [
-        pkgs.kdePackages.qt5compat
-      ];
-    };
+
+    displayManager.ly.enable = true;
+
+    # displayManager.sddm = {
+    #   enable = true;
+    #   wayland.enable = true;
+    #   theme = "sddm-theme-astronaut";
+    #   package = pkgs.kdePackages.sddm;
+    #   extraPackages = [
+    #     pkgs.kdePackages.qt5compat
+    #   ];
+    # };
 
     upower = {
       enable = true;
