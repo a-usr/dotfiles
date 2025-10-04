@@ -26,12 +26,13 @@ in
         inputs.home-manager.nixosModules.home-manager
         inputs.hjem.nixosModules.default
       ];
-      hjem = {extraModules = [
-        inputs.hjem-rum.hjemModules.default
-      ];
-      specialArgs = { inherit inputs; }; 
-			linker = inputs.hjem.packages.${config.system}.smfh;
-			};
+      hjem = {
+        extraModules = [
+          inputs.hjem-rum.hjemModules.default
+        ];
+        specialArgs = { inherit inputs; };
+        linker = inputs.hjem.packages.${config.system}.smfh;
+      };
 
       home-manager = {
         extraSpecialArgs = {

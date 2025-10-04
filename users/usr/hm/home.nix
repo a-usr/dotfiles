@@ -4,16 +4,16 @@
   ...
 }:
 {
-  imports = [
-    ./playerctl
-    ./hyprpaper
-    ./ags
-    ./zsh
-    ./nushell
-    ./starship
-    ./hyprlock
-    ./nvim
-  ];
+  # imports = [
+  #   ./playerctl
+  #   ./hyprpaper
+  #   ./ags
+  #   ./zsh
+  #   ./nushell
+  #   ./starship
+  #   ./hyprlock
+  #   ./nvim
+  # ];
 
   home.sessionVariables = {
     XDG_CONFIG_HOME = "~/.config/";

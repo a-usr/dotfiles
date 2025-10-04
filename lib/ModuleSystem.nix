@@ -52,7 +52,8 @@ rec {
             {
               _module.args = {
                 inherit inputs lib lib';
-              } // specialArgs;
+              }
+              // specialArgs;
             }
             prevGlobalModule
           ];
@@ -143,14 +144,13 @@ rec {
                 inherit lib' global;
               };
 
-              modules =
-                [
-                  {
-                    options = _moduleOptions lib;
-                  }
-                ]
-                ++ extraModules
-                ++ modules;
+              modules = [
+                {
+                  options = _moduleOptions lib;
+                }
+              ]
+              ++ extraModules
+              ++ modules;
             };
           };
           config = {

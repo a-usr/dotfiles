@@ -62,10 +62,10 @@
       mkNixosConfig =
         host:
         mkNixosConfig' {
-          modules = (lib.getModulesFromDir (./hosts + "/${host}/modules")) ++ [
+          modules = (lib.getModulesFromDir (./hosts + "/${host}/cms")) ++ [
             {
               _file = "Native Module Imports";
-              nativeModule.imports = lib.getModulesFromDir (./hosts + "/${host}/nativeModules") ++ [
+              nativeModule.imports = lib.getModulesFromDir (./hosts + "/${host}/native") ++ [
                 { networking.hostName = host; }
               ];
             }
@@ -75,10 +75,10 @@
       mkPseudoConfig =
         host:
         mkPseudoConfig' {
-          modules = (lib.getModulesFromDir (./hosts + "/${host}/modules")) ++ [
+          modules = (lib.getModulesFromDir (./hosts + "/${host}/cms")) ++ [
             {
               _file = "Native Module Imports";
-              nativeModule.imports = lib.getModulesFromDir (./hosts + "/${host}/nativeModules");
+              nativeModule.imports = lib.getModulesFromDir (./hosts + "/${host}/native");
             }
           ];
         };
