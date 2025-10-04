@@ -19,7 +19,20 @@ in
       type = types.str;
       default = "x86_64-linux";
     };
+
+    pkgs = mkOption {
+      type = types.pkgs;
+      default = import inputs.nixpkgs {
+        inherit (config) system;
+        overlays = import ../../../overlays/nixpkgs.nix { inherit inputs; };
+        config = {
+          allowUnfreePredicate = config.nixpkgs.allowUnfreePredicate;
+        };
+      };
+    };
   };
+
+  config._module.args.pkgs = (config.pkgs);
   config.nativeModule = (
     args: {
       imports = [
@@ -43,6 +56,7 @@ in
       };
 
       nixpkgs.hostPlatform = config.system;
+      nixpkgs.pkgs = config.pkgs;
     }
   );
 }

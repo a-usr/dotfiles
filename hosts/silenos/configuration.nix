@@ -82,9 +82,7 @@
     wget
     fontconfig
     git
-    cliphist
-    wl-clipboard
-    wl-clip-persist
+    stash
     nix-prefetch-github
     kdePackages.qt5compat
     (qt6.callPackage ../../nixpkgs/sddmThemes/sddm-astronaut-theme.nix { })

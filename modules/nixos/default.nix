@@ -46,7 +46,7 @@ lib':
 
             }
           ]
-          ++ (getModulesFromDir ./users/cms)
+          ++ (getModulesFromDir ./users)
           ++ (getModulesFromDir (userBase + "/${user}/cms"));
         };
     in
@@ -62,7 +62,10 @@ lib':
       );
       config.nativeModule.imports = concatMap (
         user:
-        if config.users."${user}".enable then
+        let
+          userConfig = config.users.${user};
+        in
+        if userConfig.enable then
           [
             (
               { pkgs, ... }:
@@ -70,15 +73,25 @@ lib':
                 _file = "User module for user '${user}' injected at ${__curPos.file}:${toString __curPos.line}";
                 hjem.users."${user}" = {
                   enable = true;
-                  imports = getModulesFromDir (userBase + "/${user}/hjr");
+                  imports = getModulesFromDir (userBase + "/${user}/hjr") ++ [
+                    {
+                      _module.args = { inherit userConfig; };
+                    }
+                  ];
                 };
                 home-manager.users."${user}" = {
-                  imports = getModulesFromDir (userBase + "/${user}/hm");
+                  imports = getModulesFromDir (userBase + "/${user}/hm") ++ [
+
+                    {
+                      _module.args = { inherit userConfig; };
+                    }
+                  ];
+
                 };
                 users.users."${user}" =
                   { ... }:
                   {
-                    imports = [ config.users.${user}.userModule ];
+                    imports = [ userConfig.userModule ];
                     _module.args.pkgs = pkgs;
                   };
               }

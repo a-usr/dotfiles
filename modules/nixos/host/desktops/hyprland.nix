@@ -31,7 +31,13 @@ in
         enable = true;
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       };
-      programs.hyprland.enable = true;
+
+      # programs.uwsm.enable = true;
+      programs.hyprland = {
+        enable = true;
+        withUWSM = true;
+      };
+
       environment.systemPackages = [
         inputs.niqspkgs.packages."${global.system}".bibata-hyprcursor
       ];

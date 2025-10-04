@@ -36,6 +36,16 @@
       # minimize redundancies.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      # IMPORTANT: we're using "libgbm" and is only available in unstable so ensure
+      # to have it up-to-date or simply don't specify the nixpkgs input
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    stash.url = "github:notashelf/stash";
+
     hjem-rum = {
       url = "github:snugnug/hjem-rum";
       # You may want hjem-rum to use your defined nixpkgs input to

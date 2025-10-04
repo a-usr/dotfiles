@@ -7,6 +7,7 @@ let
   nixpkgsoverlay =
     final: prev:
     let
+      getPkgs = input: input.packages."${final.system}";
       masterPkgs = import inputs.trunk {
         system = final.system;
         config = final.config;
@@ -15,11 +16,10 @@ let
     in
     {
       master = masterPkgs;
-      hyprland = inputs.hyprland.packages."${final.system}".default;
+      hyprland = (getPkgs inputs.hyprland).default;
+      stash = (getPkgs inputs.stash).default;
     };
 in
-{
-  nixpkgs.overlays = [
-    nixpkgsoverlay
-  ];
-}
+[
+  nixpkgsoverlay
+]

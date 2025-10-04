@@ -1,5 +1,18 @@
-{ inputs, ... }:
+{ inputs, hostConfig, ... }:
 {
+
+  programs = {
+    browser = inputs.zen-browser.packages."${hostConfig.system}".default.override {
+      extraPrefsFiles = [
+        (builtins.fetchurl {
+          url = "https://raw.githubusercontent.com/MrOtherGuy/fx-autoconfig/master/program/config.js";
+          sha256 = "1mx679fbc4d9x4bnqajqx5a95y1lfasvf90pbqkh9sm3ch945p40";
+        })
+      ];
+    };
+    terminal = hostConfig.pkgs.kitty;
+  };
+
   userModule.imports = [
     (
       { pkgs, ... }:
@@ -64,9 +77,7 @@
 
           starship
           tmux
-          chromium
           grimblast
-          alacritty
           #webcord-vencord
           vesktop
           nerd-fonts.hurmit
@@ -124,12 +135,7 @@
           adwaita-icon-theme
 
           ncspot
-          rmpc
           bottom
-
-          wine
-          rare
-          legendary-gl
           #inputs.nixGaming.packages.x86_64-linux.viper
 
           flatpak # I hate myself for this
@@ -142,8 +148,6 @@
           obsidian
 
           lutris
-
-          wezterm
         ]);
       }
     )

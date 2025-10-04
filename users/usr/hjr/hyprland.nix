@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, userConfig, ... }:
 
 let
   lastChar =
@@ -25,15 +25,15 @@ in
         "$mod, X, hy3:makegroup, h"
         "$mod SHIFT, X, hy3:makegroup, v"
         "$mod, escape, exec, ags --toggle-window powermenu"
-        "$mod, F, exec, chromium"
+        "$mod, F, exec, ${userConfig.programs.browser.pname}"
         ", Print, exec, grimblast copy area"
         "$mod, M, exit"
-        "$mod, T, exec, wezterm"
+        "$mod, T, exec, ${userConfig.programs.terminal.pname}"
         "$mod, Q, killactive"
         "$mod, L, exec, hyprlock"
         "ALT, space, exec, ags --toggle-window launcher"
-        "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(wl-copy) >(satty -f -)"
-        "SUPER_SHIFT, C, exec, cliphist list | wofi --show=dmenu | cliphist decode | wl-copy"
+        "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(stash store) >(satty -f -)"
+        "SUPER_SHIFT, C, exec, cliphist list | wofi --show=dmenu | cliphist decode | stash store"
       ]
       ++ (
         # workspaces
@@ -59,8 +59,6 @@ in
 
       exec-once = [
         "hyprpaper"
-        "wl-paste --type text --watch cliphist store"
-        "wl-paste --type image --watch cliphist store"
         "ags"
       ];
 
