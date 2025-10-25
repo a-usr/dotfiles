@@ -38,6 +38,7 @@ in
       imports = [
         inputs.home-manager.nixosModules.home-manager
         inputs.hjem.nixosModules.default
+        inputs.lanzaboote.nixosModules.lanzaboote
       ];
       hjem = {
         extraModules = [

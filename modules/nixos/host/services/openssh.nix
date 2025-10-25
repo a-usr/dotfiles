@@ -4,6 +4,7 @@ let
     mkOption
     mkEnableOption
     mkIf
+    mkMerge
     types
     ;
 in
@@ -19,34 +20,29 @@ in
     };
   };
 
-  config.nativeModule = mkIf config.enable (
+  config.nativeModule = mkIf config.enable (mkMerge [
     {
       services.openssh = {
         enable = true;
       };
     }
-    // (
-      if config.tarpit then
-        {
-          services = {
-            openssh.ports = [ 1023 ];
+    (mkIf config.tarpit {
+      services = {
+        openssh.ports = [ 1023 ];
 
-            endlessh-go = {
-              enable = true;
-              port = 22;
-              openFirewall = true;
-              # prometheus = {
-              #   enable = true;
-              #   listenAddress = "127.0.0.1";
-              # };
-              # extraOptions = [
-              #   "-geoip_supplier ip-api"
-              # ];
-            };
-          };
-        }
-      else
-        { }
-    )
-  );
+        endlessh-go = {
+          enable = true;
+          port = 22;
+          openFirewall = true;
+          # prometheus = {
+          #   enable = true;
+          #   listenAddress = "127.0.0.1";
+          # };
+          # extraOptions = [
+          #   "-geoip_supplier ip-api"
+          # ];
+        };
+      };
+    })
+  ]);
 }

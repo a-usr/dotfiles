@@ -1,8 +1,8 @@
 { inputs, ... }:
 {
-  imports = [ inputs.ags.homeManagerModules.default ];
-  programs.ags = {
-    enable = true;
-    configDir = ./src;
-  };
+  # imports = [ inputs.ags.homeManagerModules.default ];
+  # programs.ags = {
+  #   enable = true;
+  #   configDir = ./src;
+  # };
 }

@@ -24,14 +24,14 @@ in
         "$mod, Down, hy3:movefocus, d"
         "$mod, X, hy3:makegroup, h"
         "$mod SHIFT, X, hy3:makegroup, v"
-        "$mod, escape, exec, ags --toggle-window powermenu"
+        "$mod, escape, exec, noctalia-shell ipc call sessionMenu toggle"
         "$mod, F, exec, ${userConfig.programs.browser.pname}"
         ", Print, exec, grimblast copy area"
         "$mod, M, exit"
         "$mod, T, exec, ${userConfig.programs.terminal.pname}"
         "$mod, Q, killactive"
         "$mod, L, exec, hyprlock"
-        "ALT, space, exec, ags --toggle-window launcher"
+        "ALT, space, exec, noctalia-shell ipc call launcher toggle"
         "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(stash store) >(satty -f -)"
         "SUPER_SHIFT, C, exec, cliphist list | wofi --show=dmenu | cliphist decode | stash store"
       ]
@@ -59,7 +59,7 @@ in
 
       exec-once = [
         "hyprpaper"
-        "ags"
+        "noctalia-shell"
       ];
 
       windowrule = [
@@ -68,6 +68,7 @@ in
       ];
       windowrulev2 = [
         "workspace special:E silent, class:(vesktop)"
+        "workspace special:E silent, class:(discord)"
       ];
 
       general = {

@@ -68,6 +68,7 @@
       in
       {
         packages = [
+          inputs.noctalia.packages."${hostConfig.system}".default
 
           # neovim.devMode
         ]
@@ -79,7 +80,10 @@
           tmux
           grimblast
           #webcord-vencord
-          vesktop
+          (discord.override {
+            withVencord = true;
+            withOpenASAR = true;
+          })
           nerd-fonts.hurmit
           nerd-fonts.caskaydia-mono
           nerd-fonts.caskaydia-cove

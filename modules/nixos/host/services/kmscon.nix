@@ -13,7 +13,20 @@
   };
 
   config.nativeModule = (
-    { pkgs, ... }:
+    { pkgs, ... }@args:
+    let
+      nativeConfig = args.config;
+      getty'tty4 = {
+        inherit (nativeConfig.systemd.services."getty@") serviceConfig;
+        environment.TTY = "tty4";
+        restartIfChanged = false;
+      }
+      # // {
+      #      environment.TTY = "tty4";
+      #    }
+      ;
+
+    in
     {
 
       services.kmscon = {
@@ -27,6 +40,9 @@
         ];
         extraConfig = "xkb-layout=${global.general.kbLayout}";
       };
+      systemd.services."kmsconvt@tty4".enable = false;
+      systemd.services."getty@tty4" = getty'tty4;
+      systemd.services."autovt@tty4" = getty'tty4;
     }
   );
 

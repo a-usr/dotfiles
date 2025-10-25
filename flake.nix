@@ -8,10 +8,17 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     trunk.url = "github:NixOS/nixpkgs"; # Do I even use this anymore
 
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+
+      # Optional but recommended to limit the size of your system closure.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     niqspkgs.url = "github:diniamo/niqspkgs";
     nixGaming.url = "github:fufexan/nix-gaming";
 
-    ags.url = "github:Aylur/ags/v1.8.2";
+    noctalia.url = "github:noctalia-dev/noctalia-shell/v3.1.1";
 
     hyprland.url = "github:hyprwm/hyprland/v0.51.0";
 
