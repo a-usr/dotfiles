@@ -1,15 +1,15 @@
 { inputs, ... }:
 let
   master_overlay = final: prev: {
-    hyprlock = inputs.hyprlock.packages."${final.system}".hyprlock;
+    hyprlock = inputs.hyprlock.packages."${final.stdenv.hostPlatform.system}".hyprlock;
   };
 
   nixpkgsoverlay =
     final: prev:
     let
-      getPkgs = input: input.packages."${final.system}";
+      getPkgs = input: input.packages."${final.stdenv.hostPlatform.system}";
       masterPkgs = import inputs.trunk {
-        system = final.system;
+        system = final.stdenv.hostPlatform.system;
         config = final.config;
         overlays = [ master_overlay ];
       };

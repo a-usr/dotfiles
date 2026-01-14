@@ -18,7 +18,8 @@
     niqspkgs.url = "github:diniamo/niqspkgs";
     nixGaming.url = "github:fufexan/nix-gaming";
 
-    noctalia.url = "github:noctalia-dev/noctalia-shell/v3.1.1";
+    noctalia.url = "github:noctalia-dev/noctalia-shell/v4.0.0";
+    noctalia.inputs.nixpkgs.follows = "nixpkgs";
 
     hyprland.url = "github:hyprwm/hyprland/v0.51.0";
 
@@ -52,6 +53,7 @@
     };
 
     stash.url = "github:notashelf/stash";
+    stash.inputs.nixpkgs.follows = "nixpkgs";
 
     hjem-rum = {
       url = "github:snugnug/hjem-rum";

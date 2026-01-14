@@ -9,7 +9,7 @@
     bluetooth.enable = true;
   };
   users.usr.enable = true;
-  # boot.gummiboot.enable = true;
+  boot.gummiboot.enable = true;
   boot.secure-boot.enable = true;
 
   nixpkgs.allowedUnfreePackages = [

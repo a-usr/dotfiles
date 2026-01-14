@@ -73,6 +73,8 @@
           # neovim.devMode
         ]
         ++ (with pkgs; [
+          wl-clip-persist
+
           nh
           jujutsu
 

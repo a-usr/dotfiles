@@ -33,7 +33,7 @@ in
         "$mod, L, exec, hyprlock"
         "ALT, space, exec, noctalia-shell ipc call launcher toggle"
         "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(stash store) >(satty -f -)"
-        "SUPER_SHIFT, C, exec, cliphist list | wofi --show=dmenu | cliphist decode | stash store"
+        "SUPER_SHIFT, C, exec, kitten panel --lines=20 --columns=100 --layer=overlay --edge=center-sized --focus-policy=on-demand -- stash list"
       ]
       ++ (
         # workspaces
@@ -58,8 +58,10 @@ in
       ];
 
       exec-once = [
+        "stash watch"
         "hyprpaper"
         "noctalia-shell"
+        "wl-clip-persist -c both"
       ];
 
       windowrule = [

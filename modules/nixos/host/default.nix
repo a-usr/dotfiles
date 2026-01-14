@@ -56,8 +56,13 @@ in
         useGlobalPkgs = true;
       };
 
-      nixpkgs.hostPlatform = config.system;
+      nixpkgs.system = config.system;
       nixpkgs.pkgs = config.pkgs;
+
+      documentation.man = {
+        enable = true;
+        generateCaches = true;
+      };
     }
   );
 }
