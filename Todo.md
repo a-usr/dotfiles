@@ -1,13 +1,5 @@
 # Fuck my life
 
-Keine Ahnung wie du dich seit mir Entwickelt hast, aber ich hoffe mal du bist Weiser als Ich es bin. Hauptsache nicht Dümmer.
-Auch wenn ich bezweifle dass du dir über sowas bewusst wärst. Ich wäre es vermutlich nicht.
-
-
-Wenn du das liest dann bedeutet das warscheinlich dass du (wie ich) nach langer zeit wieder versuchst den Mist hier auf die Reihe zu kriegen.
-Ist vermutlich um sonst, aber wir machens trotzdem. Selbstmord hört sich wie ein angenehmer Ausweg an. Spielt keine Rolle. Falls du mittlerweile depressiv bist: 
-Traurig, aber denk nicht mal daran. Du weisst dass du besser als das bist. Trotz ist ein mehr-oder-weniger hilfreicher begleiter.
-
 # Todo
 - [ ]  Fix up the Modules. I tried to do namespaced files, using a toplevel option that gets passed through to submodules,
 however that would result in an infrec, so now you have to amend what my past self changed to the assumedly working system before testing it properly. Fucking dumbass. I hate him.
