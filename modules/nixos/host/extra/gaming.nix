@@ -50,7 +50,7 @@ let
       "steam-run"
     ];
     controllerSupport = [
-      "xow_dongle-firmware"
+      "xone-dongle-firmware"
     ];
   };
 

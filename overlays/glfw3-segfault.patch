@@ -1,0 +1,28 @@
+From f0ce8223d915dd32c42ded967a10f1cb048e3cfa Mon Sep 17 00:00:00 2001
+From: John <81042605+a-usr@users.noreply.github.com>
+Date: Sat, 21 Feb 2026 19:56:44 +0100
+Subject: [PATCH] Wayland: Don't segfault
+
+Since the compositor may send key modifiers before the keymap event, we
+may end up making libxkbcommon dereference a nullpointer for a state, which
+is... inconvenient.
+---
+ src/wl_window.c | 2 +-
+ 1 files changed, 1 insertions(+), 1 deletion(-)
+
+diff --git a/src/wl_window.c b/src/wl_window.c
+index dd097cf..3f2dfde 100644
+--- a/src/wl_window.c
++++ b/src/wl_window.c
+@@ -1969,7 +1969,7 @@ static void keyboardHandleModifiers(void* userData,
+ {
+     _glfw.wl.serial = serial;
+ 
+-    if (!_glfw.wl.xkb.keymap)
++    if (!_glfw.wl.xkb.keymap || !_glfw.wl.xkb.state)
+         return;
+ 
+     xkb_state_update_mask(_glfw.wl.xkb.state,
+-- 
+2.52.0
+
