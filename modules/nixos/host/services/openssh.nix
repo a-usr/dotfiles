@@ -10,7 +10,7 @@ let
 in
 {
   options = {
-    enable = mkOption {
+    enabled = mkOption {
       type = types.bool;
       default = true;
     };
@@ -20,7 +20,7 @@ in
     };
   };
 
-  config.nativeModule = mkIf config.enable (mkMerge [
+  config.nativeModule = mkIf config.enabled (mkMerge [
     {
       services.openssh = {
         enable = true;

@@ -9,10 +9,6 @@
 {
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager = {
-    enable = true; # Easiest to use and most distros use this by default.
-    plugins = lib.mkForce [ ];
-  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -63,7 +59,7 @@
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [
-    1023
+    # 1023
     # 80
   ];
   # networking.firewall.allowedUDPPorts = [ ... ];
@@ -95,7 +91,6 @@
   # };
 
   security.pam.services = {
-    ly.u2fAuth = true;
     login.u2fAuth = true;
     sudo.u2fAuth = true;
   };

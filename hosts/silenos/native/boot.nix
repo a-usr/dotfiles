@@ -1,6 +1,0 @@
-{ config, ... }:
-{
-  boot = {
-    supportedFilesystems = [ "ntfs" ];
-  };
-}

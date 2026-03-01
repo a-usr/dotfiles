@@ -17,7 +17,7 @@
       nil
       pyright
       bash-language-server
-      lua-language-server
+      emmylua-ls
       fish-lsp
       # zls
 
@@ -33,7 +33,7 @@
       taplo # TOML formatter
       rustfmt # Rust formatter
       shfmt # Shell, Bash etc.
-      nixfmt-rfc-style
+      nixfmt
       stylua # lua formatter
 
       # Misc
