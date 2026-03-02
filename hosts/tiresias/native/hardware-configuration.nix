@@ -26,7 +26,7 @@
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
+  fileSystems."/efi" = {
     device = "/dev/disk/by-uuid/6398-276E";
     fsType = "vfat";
     options = [
@@ -35,7 +35,7 @@
     ];
   };
 
-  fileSystems."/efi" = {
+  fileSystems."/" = {
     device = "/dev/disk/by-uuid/c718f7c3-4d91-45bd-87b0-8f6f036f5fb8";
     fsType = "ext4";
   };
