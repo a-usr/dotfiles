@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hostConfig, ... }:
 {
   programs.neovim = {
     # package = pkgs.neovim-unwrapped;
@@ -6,19 +6,17 @@
     defaultEditor = true;
     withPython3 = false;
     withRuby = false;
+    waylandSupport = hostConfig.internal.graphical;
     extraPackages = with pkgs; [
       chafa
       neovim-remote
       lua
 
       # Language Servers
-      rust-analyzer
       nixd
       nil
-      pyright
       bash-language-server
       emmylua-ls
-      fish-lsp
       # zls
 
       typescript
@@ -31,14 +29,12 @@
       nodePackages_latest.prettier # JSON, JS, TS formatter
       yamlfmt # YAML formatter
       taplo # TOML formatter
-      rustfmt # Rust formatter
       shfmt # Shell, Bash etc.
       nixfmt
       stylua # lua formatter
 
       # Misc
       lazygit
-      clang
       tree-sitter
     ];
 

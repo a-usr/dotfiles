@@ -15,9 +15,11 @@
 
   userModule.imports = [
     (
-      { pkgs, ... }:
+      { pkgs, lib, ... }:
 
       let
+        inherit (lib.lists) optionals;
+
         neovim = inputs.mnw.lib.wrap pkgs {
           appName = "nvim";
           initLua = ''
@@ -67,94 +69,93 @@
         };
       in
       {
-        packages = [
-          inputs.noctalia.packages."${hostConfig.system}".default
+        packages = (
+          with pkgs;
+          [
 
-          # neovim.devMode
-        ]
-        ++ (with pkgs; [
-          wl-clip-persist
+            nh
+            jujutsu
 
-          nh
-          jujutsu
+            starship
+            tmux
+            #spicetify-cli
+            zip
+            unzip
 
-          starship
-          tmux
-          grimblast
-          #webcord-vencord
-          (discord.override {
-            withVencord = true;
-            withOpenASAR = true;
-          })
-          nerd-fonts.hurmit
-          nerd-fonts.caskaydia-mono
-          nerd-fonts.caskaydia-cove
-          #spicetify-cli
+            fd
+            fzf
+            ripgrep
+            bottom
+          ]
+          ++ optionals (hostConfig.internal.graphical) [
+            inputs.noctalia.packages."${hostConfig.system}".default
 
-          yazi
-          everforest-gtk-theme
+            yazi
+            #webcord-vencord
+            (discord.override {
+              withVencord = true;
+              withOpenASAR = true;
+            })
 
-          grim
-          slurp
-          wayshot
-          inputs.hyprpicker.packages."x86_64-linux".hyprpicker
-          satty
+            everforest-gtk-theme
 
-          brightnessctl
+            grim
+            slurp
+            wayshot
+            inputs.hyprpicker.packages."x86_64-linux".hyprpicker
+            satty
 
-          alejandra
+            brightnessctl
+            wl-clip-persist
+            imagemagick
 
-          imagemagick
-          ffmpeg
-          zip
-          unzip
+            nerd-fonts.hurmithostConfig.internal.graphical
+            nerd-fonts.caskaydia-mono
+            nerd-fonts.caskaydia-cove
+            ffmpeg
+            # (
+            #     pkgs.emacsWithPackagesFromPackageRequires {
+            #         packageElisp = "";
+            #         package = pkgs.emacs-pgtk;
+            #         extraEmacsPackages = epkgs: [
+            #             pkgs.ispell
+            #         ];
+            #     }
+            # )
+            (prismlauncher.override {
+              jdks = [
+                pkgs.jdk21
+                pkgs.jdk17
+                pkgs.jdk8
+              ];
+            })
+            #jdk
+            #jdk17
+            #jdk8
 
-          fd
-          fzf
-          ripgrep
-          # (
-          #     pkgs.emacsWithPackagesFromPackageRequires {
-          #         packageElisp = "";
-          #         package = pkgs.emacs-pgtk;
-          #         extraEmacsPackages = epkgs: [
-          #             pkgs.ispell
-          #         ];
-          #     }
-          # )
-          (prismlauncher.override {
-            jdks = [
-              pkgs.jdk21
-              pkgs.jdk17
-              pkgs.jdk8
-            ];
-          })
-          #jdk
-          #jdk17
-          #jdk8
+            dart-sass
+            sassc
+            bun
+            libnotify
 
-          dart-sass
-          sassc
-          bun
-          libnotify
+            papirus-icon-theme
+            adwaita-icon-theme
 
-          papirus-icon-theme
-          adwaita-icon-theme
+            ncspot
+            #inputs.nixGaming.packages.x86_64-linux.viper
 
-          ncspot
-          bottom
-          #inputs.nixGaming.packages.x86_64-linux.viper
+            flatpak # I hate myself for this
 
-          flatpak # I hate myself for this
+            wf-recorder
+            obs-studio
+            pwvucontrol
+            easyeffects
+            qpwgraph
+            obsidian
 
-          wf-recorder
-          obs-studio
-          pwvucontrol
-          easyeffects
-          qpwgraph
-          obsidian
-
-          lutris
-        ]);
+            lutris
+          ]
+        );
       }
     )
   ];

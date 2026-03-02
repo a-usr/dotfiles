@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  hostConfig,
+  ...
+}:
 let
   inherit (lib) mkOption mkIf pipe;
   inherit (lib.types) nullOr package str;
@@ -15,9 +20,11 @@ in
     };
   };
 
-  config.userModule.packages = pipe config.programs [
-    builtins.attrValues
-    (builtins.filter (v: v != null))
-  ];
+  config.userModule.packages = lib.optionals hostConfig.internal.graphical (
+    pipe config.programs [
+      builtins.attrValues
+      (builtins.filter (v: v != null))
+    ]
+  );
 
 }
