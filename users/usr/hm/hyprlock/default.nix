@@ -1,9 +1,10 @@
 {
+  hostConfig,
   ...
 }:
 {
   programs.hyprlock = {
-    enable = true;
+    enable = hostConfig.internal.graphical;
     settings = {
       "background" = {
         monitor = "";

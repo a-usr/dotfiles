@@ -10,7 +10,7 @@ in
 {
   options.enable = mkOption {
     type = lib.types.bool;
-    default = !global.headless;
+    default = global.internal.graphical;
   };
 
   config.global.internal.graphical = mkIf config.enable true;

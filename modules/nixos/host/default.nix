@@ -24,7 +24,9 @@ in
       type = types.pkgs;
       default = import inputs.nixpkgs {
         inherit (config) system;
-        overlays = import ../../../overlays/nixpkgs.nix { inherit inputs; };
+        overlays = import ../../../overlays/nixpkgs.nix { inherit inputs; } ++ [
+          inputs.nix-minecraft.overlay
+        ];
         config = {
           allowUnfreePredicate = config.nixpkgs.allowUnfreePredicate;
         };
@@ -39,6 +41,7 @@ in
         inputs.home-manager.nixosModules.home-manager
         inputs.hjem.nixosModules.default
         inputs.lanzaboote.nixosModules.lanzaboote
+        inputs.nix-minecraft.nixosModules.minecraft-servers
       ];
       hjem = {
         extraModules = [

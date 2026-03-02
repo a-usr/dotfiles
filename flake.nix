@@ -2,6 +2,10 @@
   description = "A shrimple NixOS flake";
 
   inputs = {
+
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    nix-minecraft.inputs.nixpkgs.follows = "nixpkgs";
+
     mnw.url = "github:Gerg-L/mnw";
     # NixOS official package source, using the nixos-24.05 branch here
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
@@ -71,16 +75,17 @@
     let
       lib = import ./lib;
       allModules = import ./modules { inherit lib; };
-      mkNixosConfig' =
+
+      mkNixosConfig'' =
         args:
         lib.mkTopLevel inputs inputs.nixpkgs.lib.nixosSystem {
           modules = allModules.nixosModules ++ args.modules;
-          specialArgs = { inherit inputs; };
         }
-        // builtins.removeAttrs args [ "modules" ];
-      mkNixosConfig =
-        host:
-        mkNixosConfig' {
+        // removeAttrs args [ "modules" ];
+
+      mkNixosConfig' =
+        host: extraModule:
+        mkNixosConfig'' {
           modules = (lib.getModulesFromDir (./hosts + "/${host}/cms")) ++ [
             {
               _file = "Native Module Imports";
@@ -88,8 +93,12 @@
                 { networking.hostName = host; }
               ];
             }
+            extraModule
           ];
         };
+
+      mkNixosConfig = host: mkNixosConfig' host { };
+      mkNixosContainer = host: mkNixosConfig' host { nativeModule.boot.isNspawnContainer = true; };
 
       mkPseudoConfig =
         host:
@@ -108,15 +117,19 @@
         lib.mkTopLevel inputs (args: args) {
           modules = allModules.nixosModules ++ modules;
         }
-        // builtins.removeAttrs args [ "modules" ];
+        // removeAttrs args [ "modules" ];
     in
     {
       inherit lib inputs allModules;
       nixpkgsLib = inputs.nixpkgs.lib;
-      #lib = import ./overlays/lib.nix inputs;
-      nixosConfigurations.ssd = import ./hosts/ssd inputs;
-      nixosConfigurations.silenos = mkNixosConfig "silenos";
+      nixosConfigurations = {
+        #lib = import ./overlays/lib.nix inputs;
+        ssd = import ./hosts/ssd inputs;
+        silenos = mkNixosConfig "silenos";
+        tiresias = mkNixosConfig "tiresias";
+        tiresias_c = mkNixosContainer "tiresias";
+      };
       pseudo = mkPseudoConfig' { };
-      pseudo_host = mkPseudoConfig "silenos";
+      pseudo_host = mkPseudoConfig "tiresias";
     };
 }

@@ -12,7 +12,7 @@
     };
   };
 
-  config.nativeModule = (
+  config.nativeModule = lib.optionalAttrs (config.enable) (
     { pkgs, ... }@args:
     let
       nativeConfig = args.config;

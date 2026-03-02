@@ -4,7 +4,7 @@
     ./module.nix
   ];
   programs.hyprpaper = {
-    enable = true;
+    # enable = true;
     settings = {
       wallpaper = {
         monitor = "";

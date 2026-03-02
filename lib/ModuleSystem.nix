@@ -98,7 +98,7 @@ rec {
     evalModulesFinal {
 
       specialArgs = {
-        inherit inputs;
+        inherit inputs lib';
       };
 
       modules = [

@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, hostConfig, ... }:
 {
   rum.misc.gtk = {
-    enable = true;
+    enable = hostConfig.internal.graphical;
     packages = with pkgs; [
       everforest-gtk-theme
       papirus-icon-theme

@@ -2,7 +2,7 @@
 {
   groups = [
     "sysconfig"
-
+    "minecraft"
     "wheel"
     "networkmanager"
     "localhost"

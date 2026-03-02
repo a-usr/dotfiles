@@ -19,13 +19,15 @@ lib':
       userBase = ../../users;
 
       userDirs = getAttrsWithValue "directory" (readDir userBase);
+
+      commonArgs = {
+        hostConfig = config;
+        inherit lib' inputs;
+      };
       mkUserModule =
         user:
         types.submoduleWith {
-          specialArgs = {
-            hostConfig = config;
-            inherit lib' inputs;
-          };
+          specialArgs = commonArgs;
           modules = [
             {
               options = {
@@ -75,7 +77,7 @@ lib':
                   enable = true;
                   imports = getModulesFromDir (userBase + "/${user}/hjr") ++ [
                     {
-                      _module.args = { inherit userConfig; };
+                      _module.args = commonArgs;
                     }
                   ];
                 };
@@ -83,7 +85,7 @@ lib':
                   imports = getModulesFromDir (userBase + "/${user}/hm") ++ [
 
                     {
-                      _module.args = { inherit userConfig; };
+                      _module.args = commonArgs;
                     }
                   ];
 

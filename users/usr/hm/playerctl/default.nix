@@ -1,6 +1,7 @@
-{pkgs, ...}: {
-  home.packages = with pkgs; [playerctl];
+{ pkgs, hostConfig, ... }:
+{
+  home.packages = with pkgs; [ playerctl ];
   services.playerctld = {
-    enable = true;
+    enable = hostConfig.general.sound;
   };
 }

@@ -1,4 +1,9 @@
-{ inputs, userConfig, ... }:
+{
+  inputs,
+  userConfig,
+  hostConfig,
+  ...
+}:
 
 let
   lastChar =
@@ -7,7 +12,7 @@ in
 {
   rum.desktops.hyprland = {
 
-    enable = true;
+    enable = hostConfig.desktops.hyprland.enable;
     plugins = [
       inputs.hy3.packages.x86_64-linux.hy3
     ];
