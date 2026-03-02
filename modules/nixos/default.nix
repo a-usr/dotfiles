@@ -66,6 +66,9 @@ lib':
         user:
         let
           userConfig = config.users.${user};
+          args = commonArgs // {
+            inherit userConfig;
+          };
         in
         if userConfig.enable then
           [
@@ -77,7 +80,7 @@ lib':
                   enable = true;
                   imports = getModulesFromDir (userBase + "/${user}/hjr") ++ [
                     {
-                      _module.args = commonArgs;
+                      _module.args = args;
                     }
                   ];
                 };
@@ -85,7 +88,7 @@ lib':
                   imports = getModulesFromDir (userBase + "/${user}/hm") ++ [
 
                     {
-                      _module.args = commonArgs;
+                      _module.args = args;
                     }
                   ];
 

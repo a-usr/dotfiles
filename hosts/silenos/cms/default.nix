@@ -19,5 +19,6 @@
     "vscode"
     "obsidian"
     "discord"
+    "epson_201207w"
   ];
 }

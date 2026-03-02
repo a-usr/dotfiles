@@ -109,7 +109,7 @@
             wl-clip-persist
             imagemagick
 
-            nerd-fonts.hurmithostConfig.internal.graphical
+            nerd-fonts.hurmit
             nerd-fonts.caskaydia-mono
             nerd-fonts.caskaydia-cove
             ffmpeg
