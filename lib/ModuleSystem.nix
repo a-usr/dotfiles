@@ -110,7 +110,7 @@ rec {
   getModulesFromDir =
     dir:
     let
-      ImmediateImports = lib'.getItemsFromDir "regular" dir;
+      ImmediateImports = lib'.filterNixFiles (lib'.getItemsFromDir "regular" dir);
 
       SubdirImports = lib'.filterNixFiles (
         concatMap (dir: lib'.getItemsFromDir "regular" dir) (lib'.getItemsFromDir "directory" dir)
