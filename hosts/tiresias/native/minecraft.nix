@@ -46,6 +46,7 @@ let
           throw "unimplemented modloader: ${type}";
     in
     {
+      jvmOpts = "-Xmx4G -Xms2G -Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=true";
       package = serverPackage;
       symlinks.mods = pkgs.linkFarmFromDrvs "mods" (
         map (
