@@ -1,6 +1,5 @@
 {
   headless = true;
-  boot.gummiboot.enable = true;
   services.networkmanager.enabled = false;
   users.usr.enable = true;
   nixpkgs.allowedUnfreePackages = [

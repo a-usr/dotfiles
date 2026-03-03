@@ -22,21 +22,12 @@
     "sd_mod"
     "sr_mod"
   ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [ "nvme" ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/efi" = {
-    device = "/dev/disk/by-uuid/6398-276E";
-    fsType = "vfat";
-    options = [
-      "fmask=0022"
-      "dmask=0022"
-    ];
-  };
-
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/c718f7c3-4d91-45bd-87b0-8f6f036f5fb8";
+    device = "/dev/disk/by-uuid/9e367d2b-90cc-4fb8-a760-383572199c1a";
     fsType = "ext4";
   };
 
