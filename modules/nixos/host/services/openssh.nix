@@ -25,6 +25,7 @@ in
       services.openssh = {
         enable = true;
         settings.DenyUsers = [ "root" ];
+        settings.PasswordAuthentication = false;
       };
     }
     (mkIf config.tarpit {
