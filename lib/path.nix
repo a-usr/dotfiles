@@ -13,7 +13,9 @@ rec {
     itemType: dir:
     map (file: toString (dir + "/${file}")) (lib.getAttrsWithValue itemType (readDir dir));
 
-  filterNixFiles = filenames: filter (name: (getFileExtension name) == "nix") filenames;
+  filterFileType = ft: filenames: filter (name: (getFileExtension name) == ft) filenames;
+
+  filterNixFiles = filenames: filterFileType "nix" filenames;
 
   getFileExtension =
     file:

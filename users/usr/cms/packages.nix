@@ -75,6 +75,7 @@
 
             nh
             jujutsu
+            git
 
             starship
             tmux

@@ -23,9 +23,10 @@
   programs = {
     tmux = {
       enable = true;
+      mouse = true;
+      keyMode = "vi";
       # shortcut = "y";
       extraConfig = ''
-        set -g mouse on
         bind , split-window -h
         bind . split-window -v
       '';

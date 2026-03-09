@@ -81,6 +81,21 @@
     },
     {
       "downloads": [
+        "https://cdn.modrinth.com/data/MBAkmtvl/versions/sbE6e5Gh/balm-fabric-1.21.11-21.11.6.jar"
+      ],
+      "env": {
+        "client": "optional",
+        "server": "optional"
+      },
+      "fileSize": 861882,
+      "hashes": {
+        "sha1": "af9caac1081738b5c682cd8cd72ee4644cce9607",
+        "sha512": "89aac07146c8204e705662010589c60b4e8fdf07cabc254e5901116edc95da40448d4a49abfdf179883512c83c7909b7ba02e767cde49cb44b69e1e58c793041"
+      },
+      "path": "mods/balm-fabric-1.21.11-21.11.6.jar"
+    },
+    {
+      "downloads": [
         "https://cdn.modrinth.com/data/VSNURh3q/versions/vsiqVtu6/c2me-fabric-mc1.21.11-0.3.7%2Balpha.0.9.jar"
       ],
       "env": {
@@ -96,6 +111,21 @@
     },
     {
       "downloads": [
+        "https://cdn.modrinth.com/data/IwCkru1D/versions/CqAskfnS/cicada-lib-0.14.3%2B1.21.9-1.21.10.jar"
+      ],
+      "env": {
+        "client": "optional",
+        "server": "optional"
+      },
+      "fileSize": 381672,
+      "hashes": {
+        "sha1": "5df55ab2733c3bb729a9ea87fef8a4d26c2a57d1",
+        "sha512": "7f78e8aa5dacea7bbc06850aa1068c9f84e800c1f9d8c040899445098dfb7504d1a57339b6174c3d334d64f4a4ae96b613f29d31c44ee0daf1aa7b8c96474455"
+      },
+      "path": "mods/cicada-lib-0.14.3+1.21.9-1.21.10.jar"
+    },
+    {
+      "downloads": [
         "https://cdn.modrinth.com/data/9s6osm5g/versions/xuX40TN5/cloth-config-21.11.153-fabric.jar"
       ],
       "env": {
@@ -108,6 +138,36 @@
         "sha512": "8f455489d4b71069e998568cf4e1450116f4360a4eb481cd89117f629c6883164886cf63ca08ac4fc929dd13d1112152755a6216d4a1498ee6406ef102093e51"
       },
       "path": "mods/cloth-config-21.11.153-fabric.jar"
+    },
+    {
+      "downloads": [
+        "https://cdn.modrinth.com/data/rd9rKuJT/versions/Gv74xveQ/disconnect-packet-fix-fabric-2.0.0.jar"
+      ],
+      "env": {
+        "client": "unsupported",
+        "server": "required"
+      },
+      "fileSize": 8703,
+      "hashes": {
+        "sha1": "2ba7d25b312c09b4b1ad821b42526b8b33652740",
+        "sha512": "1fd6f09a41ce36284e1a8e9def53f3f6834d7201e69e54e24933be56445ba569fbc26278f28300d36926ba92db6f4f9c0ae245d23576aaa790530345587316db"
+      },
+      "path": "mods/disconnect-packet-fix-fabric-2.0.0.jar"
+    },
+    {
+      "downloads": [
+        "https://cdn.modrinth.com/data/6FtRfnLg/versions/QyuEXDMC/do_a_barrel_roll-fabric-3.8.3%2B1.21.11.jar"
+      ],
+      "env": {
+        "client": "required",
+        "server": "optional"
+      },
+      "fileSize": 485426,
+      "hashes": {
+        "sha1": "ab0719761474257b10a505f11cf68fe6ebd28440",
+        "sha512": "46a877167b0e5726e621b569b0ef7e9ded9787861419579b61e01e6d74cd148f09e41783ab0b2f3cc0de3f0eb9feacca1e4a02c84151afbeb1cd632945a3fdeb"
+      },
+      "path": "mods/do_a_barrel_roll-fabric-3.8.3+1.21.11.jar"
     },
     {
       "downloads": [
@@ -198,6 +258,21 @@
         "sha512": "6397da6ce3f8a9f5832b450a48a7231d60f93640e4034cfe2215dc3518da53d069d2b76bad814f82e45e39e708dd41ef500eabc16886399097f6c71b45e1af23"
       },
       "path": "mods/fpshud-1.1.2+1.21.9-1.21.11.jar"
+    },
+    {
+      "downloads": [
+        "https://cdn.modrinth.com/data/Boon8xwi/versions/jASHw0No/inventoryessentials-fabric-1.21.11-21.11.4.jar"
+      ],
+      "env": {
+        "client": "optional",
+        "server": "optional"
+      },
+      "fileSize": 163370,
+      "hashes": {
+        "sha1": "9301f8dfa2d70256b9d0fa9a01ed19b9204027e1",
+        "sha512": "edf0eb34533641da68c0f5f18a247a3ccb49558ba56e79b80c782f86d892f218a5e3bafc7acfd8476ddc7240178f9e54153266e8756315694c55266d8ee57cf1"
+      },
+      "path": "mods/inventoryessentials-fabric-1.21.11-21.11.4.jar"
     },
     {
       "downloads": [

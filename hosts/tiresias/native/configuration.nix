@@ -6,9 +6,18 @@
   # ];
 
   boot.loader.grub.device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi0";
+  networking = {
 
-  # HACK: because Contabo's network conf hardcodes eth0, making cloud-init generate an additional empty rule
-  networking.usePredictableInterfaceNames = false;
+    # HACK: because Contabo's network conf hardcodes eth0, making cloud-init generate an additional empty rule
+    usePredictableInterfaceNames = false;
+    # Fuck them Scanners
+    firewall.extraCommands = ''
+      iptables -I INPUT -m state --state NEW -m recent --name PORTSCAN --rcheck --seconds 30 --hitcount 5 -j DROP
+      iptables -A INPUT -m state --state NEW -m recent --name PORTSCAN --set
+    '';
+  };
+
+  networking.useNetworkd = true;
 
   nix.settings.trusted-users = [ "usr" ];
   system.stateVersion = "26.05";

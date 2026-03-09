@@ -18,6 +18,7 @@ mkRec (
       getItemsFromDir
       filterNixFiles
       getBaseName
+      filterFileType
       getFileBaseNameWithoutExtension
       ;
     inherit (callLib ./lists.nix) toList;

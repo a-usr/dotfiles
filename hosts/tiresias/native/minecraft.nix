@@ -8,28 +8,19 @@ let
   inherit (lib.attrsets) attrsToList;
   inherit (lib.lists) findFirst;
   inherit (lib.strings) replaceString;
+  inherit (lib') filterFileType getFileBaseNameWithoutExtension getItemsFromDir;
 
   formatVersion = ver: replaceString "." "_" ver;
 
   modpacks = map (modpackFile: {
-    name = "${lib'.getFileBaseNameWithoutExtension modpackFile}";
+    name = "${getFileBaseNameWithoutExtension modpackFile}";
     value = lib.importJSON modpackFile;
-  }) (lib'.getItemsFromDir "regular" ./minecraftModpacks);
+  }) (filterFileType "json" (getItemsFromDir "regular" ./minecraftModpacks));
 
   mkModpack =
     modpack: extraAttrs:
     let
-      modloader =
-        let
-          unsanitized = findFirst (dep: dep.name != "minecraft") null (attrsToList modpack.dependencies);
-        in
-        if unsanitized != null then
-          {
-            type = "${replaceString "-loader" "" unsanitized.name}";
-            version = unsanitized.value;
-          }
-        else
-          null;
+      modloader = findFirst (dep: dep.name != "minecraft") null (attrsToList modpack.dependencies);
 
       serverPackage =
         let
@@ -38,10 +29,12 @@ let
         in
         if type == "vanilla" then
           pkgs.minecraftServers."vanilla-${minecraftVersion}"
-        else if type == "fabric" then
+        else if type == "fabric-loader" then
           pkgs.minecraftServers."fabric-${minecraftVersion}".override {
             loaderVersion = modloader.version;
           }
+        else if type == "neoforge" then
+          pkgs.minecraftServers."neoforge-${minecraftVersion}-${formatVersion modloader.version}"
         else
           throw "unimplemented modloader: ${type}";
     in
