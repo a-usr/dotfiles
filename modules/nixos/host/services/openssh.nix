@@ -36,6 +36,7 @@ in
           enable = true;
           port = 22;
           openFirewall = true;
+          # };
           # prometheus = {
           #   enable = true;
           #   listenAddress = "127.0.0.1";

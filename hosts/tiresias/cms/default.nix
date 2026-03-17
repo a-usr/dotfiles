@@ -4,5 +4,6 @@
   users.usr.enable = true;
   nixpkgs.allowedUnfreePackages = [
     "minecraft-server"
+    "neoforge"
   ];
 }

@@ -24,22 +24,22 @@ let
 
       serverPackage =
         let
-          type = if modloader != null then modloader.type else "vanilla";
+          type = if modloader != null then modloader.name else "vanilla";
           minecraftVersion = formatVersion modpack.dependencies.minecraft;
         in
         if type == "vanilla" then
           pkgs.minecraftServers."vanilla-${minecraftVersion}"
         else if type == "fabric-loader" then
           pkgs.minecraftServers."fabric-${minecraftVersion}".override {
-            loaderVersion = modloader.version;
+            loaderVersion = modloader.value;
           }
         else if type == "neoforge" then
-          pkgs.minecraftServers."neoforge-${minecraftVersion}-${formatVersion modloader.version}"
+          pkgs.minecraftServers."neoforge-${minecraftVersion}-${formatVersion modloader.value}"
         else
           throw "unimplemented modloader: ${type}";
     in
     {
-      jvmOpts = "-Xmx4G -Xms2G";
+      jvmOpts = "-Xmx4G -Xms2G -Djava.net.preferIPv4Stack=true";
       package = serverPackage;
       symlinks.mods = pkgs.linkFarmFromDrvs "mods" (
         map (
