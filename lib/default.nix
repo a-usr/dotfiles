@@ -19,6 +19,7 @@ mkRec (
       filterNixFiles
       getBaseName
       filterFileType
+      filterFileTypes
       getFileBaseNameWithoutExtension
       ;
     inherit (callLib ./lists.nix) toList;
@@ -27,6 +28,9 @@ mkRec (
       mkTopLevel
       getModulesFromDir
       getModulesRecursive
+      ;
+    inherit (callLib ./strings.nix)
+      startsWith
       ;
   }
 )

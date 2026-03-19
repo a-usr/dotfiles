@@ -7,30 +7,63 @@
 let
   inherit (lib.attrsets) attrsToList concatMapAttrs;
   inherit (lib.lists) findFirst;
-  inherit (lib.strings) replaceString;
-  inherit (lib') filterFileTypes getFileBaseNameWithoutExtension getItemsFromDir;
+  inherit (lib.strings) replaceString concatStringsSep;
+  inherit (lib.fileset) toSource;
+  inherit (lib')
+    filterFileTypes
+    getFileBaseNameWithoutExtension
+    getBaseName
+    getItemsFromDir
+    ;
 
   formatVersion = ver: replaceString "." "_" ver;
 
   rootComponent = path: builtins.head (builtins.split "/" path);
 
   extractModpack =
-    path:
-    pkgs.runCommand "extracted-modpack-${path}" { nativeBuildInputs = with pkgs; [ unzip ]; } ''
-      		cd $out
-      		unzip ${path}
-      	'';
+    path: name:
+    pkgs.runCommand "extracted-modpack-${name}"
+      {
+        nativeBuildInputs = with pkgs; [
+          unzip
+        ];
 
-  modpacks = map (modpackFile: {
-    name = "${getFileBaseNameWithoutExtension modpackFile}";
-    value = extractModpack modpackFile;
-  }) (filterFileTypes [ "zip" "mrpack" ] (getItemsFromDir "regular" ./minecraftModpacks));
+        src = toSource {
+          root = ./minecraftModpacks;
+          fileset = path;
+        };
+      }
+      ''
+        mkdir -p $out
+        unzip $src/${getBaseName path} -d $out
+      '';
+  modpackSpecs = {
+    createThing = {
+      excludedFiles = [ "mods/voxy-*" ];
+    };
+  };
+  modpackBundles = (
+    filterFileTypes [ "zip" "mrpack" ] (getItemsFromDir "regular" ./minecraftModpacks)
+  );
+  modpacks = builtins.mapAttrs (
+    name: value:
+    let
+      bundle = builtins.head (
+        builtins.filter (bundle: name == (getFileBaseNameWithoutExtension bundle)) modpackBundles
+      );
+    in
+    {
+      inherit name;
+      files = extractModpack bundle name;
+      settings = value;
+    }
+  ) modpackSpecs;
 
   mkServer =
-    modpack: extraAttrs:
+    name: modpack: extraAttrs:
     let
 
-      index = lib.importJSON "${modpack}/modrinth-index.json";
+      index = lib.importJSON "${modpack.files}/modrinth.index.json";
 
       modloader = findFirst (dep: dep.name != "minecraft") null (attrsToList index.dependencies);
 
@@ -49,11 +82,8 @@ let
           pkgs.minecraftServers."neoforge-${minecraftVersion}-${formatVersion modloader.value}"
         else
           throw "unimplemented modloader: ${type}";
-    in
-    {
-      jvmOpts = "-Xmx4G -Xms2G -Djava.net.preferIPv4Stack=true";
-      package = serverPackage;
-      symlinks.mods = pkgs.linkFarmFromDrvs "mods" (
+
+      mods = pkgs.linkFarmFromDrvs "mods" (
         map
           (
             mod:
@@ -68,7 +98,23 @@ let
             ) index.files
           )
       );
-      persistentFiles = modpack;
+      excludedFiles = concatStringsSep " " (
+        map (exclude: "--exclude='${exclude}'") modpack.settings.excludedFiles
+      );
+
+      files = pkgs.runCommand "minecraft-server-${name}-files" { nativeBuildInputs = [ pkgs.rsync ]; } ''
+        mkdir -p $out/mods
+        for f in ${mods}/*; do
+          cp "$f" "$out/mods/"
+        done
+        rsync -a ${excludedFiles} ${(modpack.files + "/overrides/*")} $out
+      '';
+
+    in
+    {
+      jvmOpts = "-Xmx4G -Xms2G -Djava.net.preferIPv4Stack=true";
+      package = serverPackage;
+      persistentFiles = files.outPath;
     }
     // extraAttrs;
 in
@@ -77,8 +123,6 @@ in
     enable = true;
     eula = true;
     openFirewall = true;
-    servers = builtins.mapAttrs (name: modpack: mkServer modpack { enable = true; }) (
-      builtins.listToAttrs modpacks
-    );
+    servers = builtins.mapAttrs (name: modpack: mkServer name modpack { enable = true; }) modpacks;
   };
 }

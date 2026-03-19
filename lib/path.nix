@@ -10,8 +10,7 @@ let
 in
 rec {
   getItemsFromDir =
-    itemType: dir:
-    map (file: toString (dir + "/${file}")) (lib.getAttrsWithValue itemType (readDir dir));
+    itemType: dir: map (file: (dir + "/${file}")) (lib.getAttrsWithValue itemType (readDir dir));
 
   filterFileTypes = fts: filter (name: builtins.any (ft: (getFileExtension name) == ft) fts);
 
@@ -22,7 +21,8 @@ rec {
   getFileExtension =
     file:
     let
-      splitted = (split "\\." file);
+      file_ = toString file;
+      splitted = (split "\\." (file_));
       len = length splitted;
     in
     (builtins.elemAt splitted (len - 1));
@@ -30,7 +30,8 @@ rec {
   getBaseName =
     file:
     let
-      splitted = (split "/" file);
+      file_ = toString file;
+      splitted = (split "/" file_);
       len = length splitted;
     in
     (builtins.elemAt splitted (len - 1));
