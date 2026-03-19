@@ -13,9 +13,11 @@ rec {
     itemType: dir:
     map (file: toString (dir + "/${file}")) (lib.getAttrsWithValue itemType (readDir dir));
 
-  filterFileType = ft: filenames: filter (name: (getFileExtension name) == ft) filenames;
+  filterFileTypes = fts: filter (name: builtins.any (ft: (getFileExtension name) == ft) fts);
 
-  filterNixFiles = filenames: filterFileType "nix" filenames;
+  filterFileType = ft: filterFileTypes [ ft ];
+
+  filterNixFiles = filterFileType "nix";
 
   getFileExtension =
     file:

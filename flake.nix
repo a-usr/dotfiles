@@ -3,7 +3,7 @@
 
   inputs = {
 
-    nix-minecraft.url = "github:a-usr/nix-minecraft";
+    nix-minecraft.url = "github:a-usr/nix-minecraft/overlayfs";
     nix-minecraft.inputs.nixpkgs.follows = "nixpkgs";
 
     mnw.url = "github:Gerg-L/mnw";

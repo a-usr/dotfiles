@@ -8,24 +8,36 @@ let
   inherit (lib.attrsets) attrsToList concatMapAttrs;
   inherit (lib.lists) findFirst;
   inherit (lib.strings) replaceString;
-  inherit (lib') filterFileType getFileBaseNameWithoutExtension getItemsFromDir;
+  inherit (lib') filterFileTypes getFileBaseNameWithoutExtension getItemsFromDir;
 
   formatVersion = ver: replaceString "." "_" ver;
 
+  rootComponent = path: builtins.head (builtins.split "/" path);
+
+  extractModpack =
+    path:
+    pkgs.runCommand "extracted-modpack-${path}" { nativeBuildInputs = with pkgs; [ unzip ]; } ''
+      		cd $out
+      		unzip ${path}
+      	'';
+
   modpacks = map (modpackFile: {
     name = "${getFileBaseNameWithoutExtension modpackFile}";
-    value = lib.importJSON modpackFile;
-  }) (filterFileType "json" (getItemsFromDir "regular" ./minecraftModpacks));
+    value = extractModpack modpackFile;
+  }) (filterFileTypes [ "zip" "mrpack" ] (getItemsFromDir "regular" ./minecraftModpacks));
 
   mkServer =
     modpack: extraAttrs:
     let
-      modloader = findFirst (dep: dep.name != "minecraft") null (attrsToList modpack.dependencies);
+
+      index = lib.importJSON "${modpack}/modrinth-index.json";
+
+      modloader = findFirst (dep: dep.name != "minecraft") null (attrsToList index.dependencies);
 
       serverPackage =
         let
           type = if modloader != null then modloader.name else "vanilla";
-          minecraftVersion = formatVersion modpack.dependencies.minecraft;
+          minecraftVersion = formatVersion index.dependencies.minecraft;
         in
         if type == "vanilla" then
           pkgs.minecraftServers."vanilla-${minecraftVersion}"
@@ -42,14 +54,21 @@ let
       jvmOpts = "-Xmx4G -Xms2G -Djava.net.preferIPv4Stack=true";
       package = serverPackage;
       symlinks.mods = pkgs.linkFarmFromDrvs "mods" (
-        map (
-          mod:
-          pkgs.fetchurl {
-            url = builtins.head (mod.downloads);
-            sha512 = mod.hashes.sha512;
-          }
-        ) (builtins.filter (mod: mod.env.server != "unsupported") modpack.files)
+        map
+          (
+            mod:
+            pkgs.fetchurl {
+              url = builtins.head (mod.downloads);
+              sha512 = mod.hashes.sha512;
+            }
+          )
+          (
+            builtins.filter (
+              mod: (rootComponent mod.path) == "mods" && mod.env.server != "unsupported"
+            ) index.files
+          )
       );
+      persistentFiles = modpack;
     }
     // extraAttrs;
 in
