@@ -5,7 +5,7 @@
   ...
 }:
 let
-  inherit (lib.attrsets) attrsToList;
+  inherit (lib.attrsets) attrsToList concatMapAttrs;
   inherit (lib.lists) findFirst;
   inherit (lib.strings) replaceString;
   inherit (lib') filterFileType getFileBaseNameWithoutExtension getItemsFromDir;
@@ -17,7 +17,7 @@ let
     value = lib.importJSON modpackFile;
   }) (filterFileType "json" (getItemsFromDir "regular" ./minecraftModpacks));
 
-  mkModpack =
+  mkServer =
     modpack: extraAttrs:
     let
       modloader = findFirst (dep: dep.name != "minecraft") null (attrsToList modpack.dependencies);
@@ -58,7 +58,7 @@ in
     enable = true;
     eula = true;
     openFirewall = true;
-    servers = builtins.mapAttrs (name: modpack: mkModpack modpack { enable = true; }) (
+    servers = builtins.mapAttrs (name: modpack: mkServer modpack { enable = true; }) (
       builtins.listToAttrs modpacks
     );
   };
