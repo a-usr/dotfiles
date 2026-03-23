@@ -39,7 +39,10 @@ let
       '';
   modpackSpecs = {
     createThing = {
-      excludedFiles = [ "mods/voxy-*" ];
+      excludedFiles = [
+        "mods/voxy-*"
+        "shaderpacks"
+      ];
     };
   };
   modpackBundles = (
