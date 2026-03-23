@@ -1280,10 +1280,12 @@
         "systems": "systems_7"
       },
       "locked": {
-        "lastModified": 1774077902,
-        "narHash": "sha256-kQ+eZCj5H561k73vAHFvhDOYadIO2aNJ5Nps1xyjoro=",
-        "path": "/home/usr/src/nix-minecraft",
-        "type": "path"
+        "lastModified": 1774079778,
+        "narHash": "sha256-7usi4cxmdokH8bO7Btw0oJIbiKzFE+4QdHyOd3DEMyM=",
+        "owner": "a-usr",
+        "repo": "nix-minecraft",
+        "rev": "b013224544b88b3584c6a021e73242500c5c5ced",
+        "type": "github"
       },
       "original": {
         "owner": "a-usr",
