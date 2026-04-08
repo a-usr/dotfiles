@@ -20,13 +20,13 @@
       # zls
 
       typescript
-      nodePackages_latest.typescript-language-server
+      # nodePackages_latest.typescript-language-server
       vscode-langservers-extracted
 
       # Formatter
       # python311Packages.black # Python formatter
       clang-tools
-      nodePackages_latest.prettier # JSON, JS, TS formatter
+      # nodePackages_latest.prettier # JSON, JS, TS formatter
       yamlfmt # YAML formatter
       taplo # TOML formatter
       shfmt # Shell, Bash etc.
