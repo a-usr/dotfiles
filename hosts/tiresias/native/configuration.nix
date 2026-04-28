@@ -19,6 +19,5 @@
 
   networking.useNetworkd = true;
 
-  nix.settings.trusted-users = [ "usr" ];
   system.stateVersion = "26.05";
 }

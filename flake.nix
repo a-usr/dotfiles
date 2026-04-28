@@ -25,7 +25,7 @@
     noctalia.url = "github:noctalia-dev/noctalia-shell/v4.0.0";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/hyprland/v0.51.0";
+    hyprland.url = "github:hyprwm/hyprland/v0.54.2";
 
     hyprlock.url = "github:hyprwm/Hyprlock";
     hyprlock.inputs.nixpkgs.follows = "nixpkgs";
@@ -33,7 +33,7 @@
       type = "github";
       owner = "outfoxxed";
       repo = "Hy3"; # where {version} is the hyprland release version
-      ref = "hl0.51.0";
+      ref = "hl0.54.2";
       inputs.hyprland.follows = "hyprland";
     };
     hyprpaper.url = "github:hyprwm/hyprpaper";

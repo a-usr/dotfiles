@@ -37,14 +37,37 @@ let
         mkdir -p $out
         unzip $src/${getBaseName path} -d $out
       '';
+
   modpackSpecs = {
+
     createThing = {
       excludedFiles = [
         "mods/voxy-*"
         "shaderpacks"
       ];
+      settings = {
+        jvmOpts = "-Xmx4G -Xms2G -Djava.net.preferIPv4Stack=true";
+        autoStart = false;
+      };
+    };
+
+    aero = {
+      excludedFiles = [
+        "mods/voxy-*"
+        "shaderpacks"
+      ];
+      settings = {
+        serverProperties = {
+          jvmOpts = "-Xmx8G -Xms4G -Djava.net.preferIPv4Stack=true";
+          gamemode = "creative";
+          difficulty = "peaceful";
+          motd = "Work or Fuck Off";
+          server-port = 1024;
+        };
+      };
     };
   };
+
   modpackBundles = (
     filterFileTypes [ "zip" "mrpack" ] (getItemsFromDir "regular" ./minecraftModpacks)
   );
@@ -115,7 +138,6 @@ let
 
     in
     {
-      jvmOpts = "-Xmx4G -Xms2G -Djava.net.preferIPv4Stack=true";
       package = serverPackage;
       persistentFiles = files.outPath;
     }
@@ -126,6 +148,8 @@ in
     enable = true;
     eula = true;
     openFirewall = true;
-    servers = builtins.mapAttrs (name: modpack: mkServer name modpack { enable = true; }) modpacks;
+    servers = builtins.mapAttrs (
+      name: modpack: mkServer name modpack modpackSpecs."${name}".settings // { enable = true; }
+    ) modpacks;
   };
 }

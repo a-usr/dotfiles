@@ -5,30 +5,35 @@ let
     mkOption
     types
     mapAttrsToList
-    mkIf
     ;
+  inherit (builtins) filter concatLists;
 
   maybeModules = {
-    steam = {
-      programs.steam = {
-        enable = true;
-        remotePlay.openFirewall = true;
-        gamescopeSession.enable = true;
-        # extraPackages = with pkgs; [
-        #   libgdiplus
-        #   keyutils
-        #   libkrb5
-        #   libpng
-        #   libpulseaudio
-        #   libvorbis
-        #   stdenv.cc.cc.lib
-        #   xorg.libXcursor
-        #   xorg.libXi
-        #   xorg.libXinerama
-        #   xorg.libXScrnSaver
-        # ];
-      };
-    };
+    steam = (
+      { pkgs, ... }:
+      {
+        environment.systemPackages = [ pkgs.mangohud ];
+        boot.kernelModules.ntsync = true;
+        programs.steam = {
+          enable = true;
+          remotePlay.openFirewall = true;
+          gamescopeSession.enable = true;
+          # extraPackages = with pkgs; [
+          #   libgdiplus
+          #   keyutils
+          #   libkrb5
+          #   libpng
+          #   libpulseaudio
+          #   libvorbis
+          #   stdenv.cc.cc.lib
+          #   xorg.libXcursor
+          #   xorg.libXi
+          #   xorg.libXinerama
+          #   xorg.libXScrnSaver
+          # ];
+        };
+      }
+    );
     controllerSupport = {
       hardware = {
         xone = {
@@ -54,7 +59,7 @@ let
     ];
   };
 
-  sanitizedConfig = builtins.removeAttrs config [
+  sanitizedConfig = removeAttrs config [
     "_module"
     "global"
     "nativeModule"
@@ -70,12 +75,12 @@ in
     };
   };
 
-  config.global.nixpkgs.allowedUnfreePackages = builtins.concatLists (
+  config.global.nixpkgs.allowedUnfreePackages = concatLists (
     mapAttrsToList (name: value: if value then maybeAllowedPackages."${name}" else [ ]) sanitizedConfig
 
   );
 
-  config.nativeModule.imports = mapAttrsToList (
-    name: value: mkIf value maybeModules."${name}"
-  ) sanitizedConfig;
+  config.nativeModule.imports = filter (v: v != null) (
+    mapAttrsToList (name: value: if value then maybeModules."${name}" else null) sanitizedConfig
+  );
 }

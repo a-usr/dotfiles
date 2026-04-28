@@ -18,6 +18,10 @@ let
       master = masterPkgs;
       hyprland = (getPkgs inputs.hyprland).default;
       stash = (getPkgs inputs.stash).default;
+      # temp issue
+      openldap = prev.openldap.overrideAttrs {
+        doCheck = !prev.stdenv.hostPlatform.isi686;
+      };
     };
 in
 [

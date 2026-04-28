@@ -32,6 +32,7 @@ lib':
             {
               options = {
                 enable = mkEnableOption "Enable the user ${user}";
+                trustedUser = mkEnableOption "Make ${user} trusted by the nix daemon";
                 userModule = lib.mkOption {
                   type = types.deferredModule;
                   default = { };
@@ -82,6 +83,7 @@ lib':
                     {
                       _module.args = args;
                     }
+                    userConfig.hjrModule
                   ];
                 };
                 home-manager.users."${user}" = {
@@ -90,6 +92,7 @@ lib':
                     {
                       _module.args = args;
                     }
+                    userConfig.hmModule
                   ];
 
                 };
@@ -99,6 +102,8 @@ lib':
                     imports = [ userConfig.userModule ];
                     _module.args.pkgs = pkgs;
                   };
+
+                nix.settings.trusted-users = if userConfig.trustedUser then [ user ] else [ ];
               }
             )
           ]

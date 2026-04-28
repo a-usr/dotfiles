@@ -8,7 +8,10 @@
     nvidia.enable = true;
     bluetooth.enable = true;
   };
-  users.usr.enable = true;
+  users.usr = {
+    enable = true;
+    trustedUser = true;
+  };
 
   boot.gummiboot.enable = true;
   boot.secure-boot.enable = true;

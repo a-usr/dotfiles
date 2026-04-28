@@ -9,9 +9,7 @@ in
     { config, ... }:
     {
       boot = {
-        kernelModules = [
-          "v4l2loopback"
-        ];
+        kernelModules.v4l2loopback = true;
 
         extraModulePackages = [ config.boot.kernelPackages.v4l2loopback.out ];
         extraModprobeConfig = ''

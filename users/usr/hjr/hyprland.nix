@@ -70,12 +70,10 @@ in
       ];
 
       windowrule = [
-        "fullscreen, title:(HELLDIVERS™ 2)"
-        "fullscreen, title:(Titanfall 2)"
-      ];
-      windowrulev2 = [
-        "workspace special:E silent, class:(vesktop)"
-        "workspace special:E silent, class:(discord)"
+        "match:title HELLDIVERS™ 2, fullscreen on"
+        "match:title Titanfall 2, fullscreen on"
+        "match:class vesktop, workspace special:E silent"
+        "match:class (discord), workspace special:E silent"
       ];
 
       general = {
