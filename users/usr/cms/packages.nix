@@ -87,9 +87,9 @@
             #jdk17
             #jdk8
 
-            dart-sass
-            sassc
-            bun
+            # dart-sass
+            # sassc
+            # bun
             libnotify
 
             papirus-icon-theme
@@ -107,7 +107,8 @@
             qpwgraph
             obsidian
 
-            lutris
+            mpv
+            # lutris # currently broken due to deprecated gtk2 dep
           ]
         );
       }

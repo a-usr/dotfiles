@@ -10,10 +10,9 @@
     # NixOS official package source, using the nixos-24.05 branch here
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    trunk.url = "github:NixOS/nixpkgs"; # Do I even use this anymore
 
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v1.0.0";
+      url = "github:nix-community/lanzaboote/v1.1.0";
 
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
@@ -22,21 +21,18 @@
     niqspkgs.url = "github:diniamo/niqspkgs";
     nixGaming.url = "github:fufexan/nix-gaming";
 
-    noctalia.url = "github:noctalia-dev/noctalia-shell/v4.0.0";
+    noctalia.url = "github:noctalia-dev/noctalia-shell/v5.4.0";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
 
-    hyprland.url = "github:hyprwm/hyprland/v0.54.2";
+    hyprland.url = "github:hyprwm/hyprland/v0.57.0";
 
-    hyprlock.url = "github:hyprwm/Hyprlock";
-    hyprlock.inputs.nixpkgs.follows = "nixpkgs";
     hy3 = {
       type = "github";
       owner = "outfoxxed";
       repo = "Hy3"; # where {version} is the hyprland release version
-      ref = "hl0.54.2";
+      # ref = "hl0.56.0";
       inputs.hyprland.follows = "hyprland";
     };
-    hyprpaper.url = "github:hyprwm/hyprpaper";
     hyprpicker.url = "github:hyprwm/hyprpicker";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -56,7 +52,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stash.url = "github:notashelf/stash";
+    stash.url = "github:notashelf/stash/v0.4.0";
     stash.inputs.nixpkgs.follows = "nixpkgs";
 
     hjem-rum = {

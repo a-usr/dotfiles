@@ -52,6 +52,9 @@ let
     };
 
     aero = {
+      blacklistedModPaths = [
+        ".*modernfix.*"
+      ];
       excludedFiles = [
         "mods/voxy-*"
         "shaderpacks"
@@ -120,7 +123,15 @@ let
           )
           (
             builtins.filter (
-              mod: (rootComponent mod.path) == "mods" && mod.env.server != "unsupported"
+              mod:
+              (rootComponent mod.path) == "mods"
+              && mod.env.server != "unsupported"
+              && !(
+                modpack.settings ? blacklistedModPaths
+                && (builtins.any (
+                  item: (builtins.match item mod.path) != null
+                ) modpack.settings.blacklistedModPaths)
+              )
             ) index.files
           )
       );

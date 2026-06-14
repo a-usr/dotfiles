@@ -1,0 +1,6 @@
+{
+  nix.allowedUsers = [
+    "usr"
+    "root"
+  ];
+}

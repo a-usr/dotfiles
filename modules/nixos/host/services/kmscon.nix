@@ -31,15 +31,13 @@
 
       services.kmscon = {
         enable = config.enable;
-        fonts = [
-          {
-            name = "Hurmit Nerd Font Mono";
-            package = pkgs.nerd-fonts.hurmit;
-
-          }
-        ];
-        extraConfig = "xkb-layout=${global.general.kbLayout}";
+        config = {
+          font-name = "Hurmit Nerd Font Mono";
+          "xkb-layout" = global.general.kbLayout;
+        };
       };
+
+      fonts.packages = [ pkgs.nerd-fonts.hurmit ];
       systemd.services."kmsconvt@tty4".enable = false;
       systemd.services."getty@tty4" = getty'tty4;
       systemd.services."autovt@tty4" = getty'tty4;

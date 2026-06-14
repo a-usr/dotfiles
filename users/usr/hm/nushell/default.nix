@@ -1,7 +1,7 @@
 { ... }:
 {
   programs.nushell = {
-    enable = true;
+    enable = false;
     # extraConfig = # nushell
     #   ''
     #     	const file = "~/.config/nushell/cfg.nu"

@@ -95,7 +95,7 @@ rec {
       #   ]
       # );
     in
-    evalModulesFinal {
+    (evalModulesFinal {
 
       specialArgs = {
         inherit inputs lib';
@@ -105,6 +105,9 @@ rec {
         moduleResult.config.nativeModule
       ];
 
+    })
+    // {
+      prepass = moduleResult;
     };
 
   getModulesFromDir =

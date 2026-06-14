@@ -1,4 +1,9 @@
-{ pkgs, hostConfig, ... }:
+{
+  pkgs,
+  hostConfig,
+  lib,
+  ...
+}:
 {
   programs.neovim = {
     # package = pkgs.neovim-unwrapped;
@@ -6,6 +11,8 @@
     defaultEditor = true;
     withPython3 = false;
     withRuby = false;
+    initLua = lib.mkForce "";
+
     waylandSupport = hostConfig.internal.graphical;
     extraPackages = with pkgs; [
       chafa
@@ -27,6 +34,7 @@
       # python311Packages.black # Python formatter
       clang-tools
       # nodePackages_latest.prettier # JSON, JS, TS formatter
+      biome
       yamlfmt # YAML formatter
       taplo # TOML formatter
       shfmt # Shell, Bash etc.

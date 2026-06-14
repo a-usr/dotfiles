@@ -1,0 +1,12 @@
+diff a/src/updater/moduleUpdater.js b/src/updater/moduleUpdater.js
+--- a/src/cmdSwitches.js
++++ b/src/cmdSwitches.js
+@@ -10,7 +10,7 @@ const presets = {
+ };
+ 
+ module.exports = () => {
+-  const flags = ('base,' + (oaConfig.cmdPreset || 'perf')).split(',').reduce((a, x) => a.concat(presets[x]?.split(' ')), (oaConfig.customFlags ?? '').split(' '));
++  const flags = ('base,' + (oaConfig.cmdPreset || 'perf')).split(',').reduce((a, x) => a.concat(presets[x]?.split(' ')), process.argv.concat((oaConfig.customFlags ?? '').split(' ')));
+   if (process.platform === 'linux' && settings.get('openH264Enabled', true))
+     flags.push('--enable-libopenh264', '--openh264-library-path=' + join(paths.getAssetCachePath(), 'openh264', 'libopenh264-2.7.0-linux64.8.so'));
+ 

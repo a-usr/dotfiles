@@ -53,7 +53,7 @@
         '';
         destination = "/etc/udev/rules.d/70-solo2.rules";
       })
-      (callPackage ../../../../nixpkgs/by-name/wo/wooting-udev-rules/package.nix { })
+      # (callPackage ../../../../nixpkgs/by-name/wo/wooting-udev-rules/package.nix { })
     ];
 
     # Configure keymap in X12

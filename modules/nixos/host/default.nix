@@ -29,6 +29,10 @@ in
         ];
         config = {
           allowUnfreePredicate = config.nixpkgs.allowUnfreePredicate;
+
+          # problems.handlers = {
+          #   "gtk+".broken = "warn"; # or "ignore"
+          # };
         };
       };
     };
@@ -48,7 +52,7 @@ in
           inputs.hjem-rum.hjemModules.default
         ];
         specialArgs = { inherit inputs; };
-        linker = inputs.hjem.packages.${config.system}.smfh;
+        # linker = inputs.hjem.packages.${config.system}.smfh; // Apparently they integrated it
       };
 
       home-manager = {
@@ -61,10 +65,12 @@ in
 
       nixpkgs.system = config.system;
       nixpkgs.pkgs = config.pkgs;
-
-      documentation.man = {
-        enable = true;
-        cache.enable = true;
+      documentation = {
+        dev.enable = true;
+        man = {
+          enable = true;
+          cache.enable = true;
+        };
       };
     }
   );

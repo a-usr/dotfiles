@@ -30,6 +30,9 @@
   # services.xserver.libinput.enable = true;
 
   programs.gamemode.enable = true;
+  programs.calls.enable = true;
+  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.package = pkgs.waydroid-nftables;
 
   # list packages installed in system profile. To search, run:
   # $ nix search wget
@@ -62,15 +65,23 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  # hardware = {
-  #   sane = {
-  #     enable = true;
-  #     extraBackends = [
-  #       pkgs.sane-airscan
-  #       pkgs.utsushi
-  #     ];
-  #   };
-  # };
+  hardware = {
+    sane = {
+      enable = true;
+      extraBackends = [
+        # pkgs.sane-airscan
+        # pkgs.utsushi
+        # pkgs.utsushi-networkscan
+        # ((pkgs.epkowa.override { plugins = { inherit (pkgs.epkowa.plugins) network; }; }).overrideAttrs
+        #   (oldAttrs: {
+        #     postInstall = oldAttrs.postInstall + ''
+        #       echo "net epsonf4f4e1" > $out/etc/sane.d/epkowa.conf
+        #     '';
+        #   })
+        # )
+      ];
+    };
+  };
   # services.udev.packages = [ pkgs.utsushi ];
   virtualisation.vmVariant = {
     # QEMU options to run hardware-accelerated VM

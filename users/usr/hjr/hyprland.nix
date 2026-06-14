@@ -12,7 +12,7 @@ in
 {
   rum.desktops.hyprland = {
 
-    enable = hostConfig.desktops.hyprland.enable;
+    enable = false;
     plugins = [
       inputs.hy3.packages.x86_64-linux.hy3
     ];
@@ -35,7 +35,7 @@ in
         "$mod, M, exit"
         "$mod, T, exec, ${userConfig.programs.terminal.pname}"
         "$mod, Q, killactive"
-        "$mod, L, exec, hyprlock"
+        "$mod, L, exec, noctalia-shell ipc call lockScreen lock"
         "ALT, space, exec, noctalia-shell ipc call launcher toggle"
         "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(stash store) >(satty -f -)"
         "SUPER_SHIFT, C, exec, kitten panel --lines=20 --columns=100 --layer=overlay --edge=center-sized --focus-policy=on-demand -- stash list"

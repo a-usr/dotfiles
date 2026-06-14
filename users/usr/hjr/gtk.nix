@@ -3,12 +3,14 @@
   rum.misc.gtk = {
     enable = hostConfig.internal.graphical;
     packages = with pkgs; [
-      everforest-gtk-theme
       papirus-icon-theme
+      gnome-themes-extra
     ];
     settings = {
-      theme-name = "Everforest-Dark-BL-LB";
+      theme-name = "Adwaita";
       icon-theme-name = "Papirus";
+      application-prefer-dark-theme = true;
+      # interface-color-scheme = 2;
     };
 
   };
