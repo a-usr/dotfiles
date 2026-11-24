@@ -13,39 +13,40 @@ let
   luaValue = lib.generators.toLua { };
   luaInline = lib.generators.mkLuaInline;
 
-  regularbinds = [
-    "$mod SHIFT, Left, hy3:movewindow, l"
-    "$mod SHIFT, Right, hy3:movewindow, r"
-    "$mod SHIFT, Up, hy3:movewindow, u"
-    "$mod SHIFT, Down, hy3:movewindow, d"
-    "$mod, Left, hy3:movefocus, l"
-    "$mod, Right, hy3:movefocus, r"
-    "$mod, Up, hy3:movefocus, u"
-    "$mod, Down, hy3:movefocus, d"
-    "$mod, X, hy3:makegroup, h"
-    "$mod SHIFT, X, hy3:makegroup, v"
-    "$mod, F, exec, ${userConfig.programs.browser.pname}"
-    "$mod, M, exit"
-    "$mod, T, exec, ${userConfig.programs.terminal.pname}"
-    "$mod, Q, killactive"
-    "$mod, L, exec, noctalia msg session lock"
-    "$mod, escape, exec, noctalia msg panel-toggle session"
-    "ALT, space, exec, noctalia msg panel-toggle launcher"
-    ", Print, exec, grimblast copy area"
-    "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(stash store) >(satty -f -)"
-    "SUPER_SHIFT, C, exec, kitten panel --lines=20 --columns=100 --layer=overlay --edge=center-sized --focus-policy=on-demand -- stash list"
-    ", F1, togglespecialworkspace, E"
-  ]
-  ++ (
-    # workspaces
-    # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
-    builtins.concatLists (
-      builtins.genList (x: [
-        "$mod, ${lastChar (toString (x + 1))}, workspace, ${toString (x + 1)}"
-        "$mod SHIFT, ${lastChar (toString (x + 1))}, movetoworkspace, ${toString (x + 1)}"
-      ]) 10
-    )
-  );
+  #  MY ORIGINAL BINDS
+  # regularbinds = [
+  #   "$mod SHIFT, Left, hy3:movewindow, l"
+  #   "$mod SHIFT, Right, hy3:movewindow, r"
+  #   "$mod SHIFT, Up, hy3:movewindow, u"
+  #   "$mod SHIFT, Down, hy3:movewindow, d"
+  #   "$mod, Left, hy3:movefocus, l"
+  #   "$mod, Right, hy3:movefocus, r"
+  #   "$mod, Up, hy3:movefocus, u"
+  #   "$mod, Down, hy3:movefocus, d"
+  #   "$mod, X, hy3:makegroup, h"
+  #   "$mod SHIFT, X, hy3:makegroup, v"
+  #   "$mod, F, exec, ${userConfig.programs.browser.pname}"
+  #   "$mod, M, exit"
+  #   "$mod, T, exec, ${userConfig.programs.terminal.pname}"
+  #   "$mod, Q, killactive"
+  #   "$mod, L, exec, noctalia msg session lock"
+  #   "$mod, escape, exec, noctalia msg panel-toggle session"
+  #   "ALT, space, exec, noctalia msg panel-toggle launcher"
+  #   ", Print, exec, grimblast copy area"
+  #   "$mod SHIFT, S, exec, grim -g \"$(slurp)\"  - | tee >(stash store) >(satty -f -)"
+  #   "SUPER_SHIFT, C, exec, kitten panel --lines=20 --columns=100 --layer=overlay --edge=center-sized --focus-policy=on-demand -- stash list"
+  #   ", F1, togglespecialworkspace, E"
+  # ]
+  # ++ (
+  #   # workspaces
+  #   # binds $mod + [shift +] {1..10} to [move to] workspace {1..10}
+  #   builtins.concatLists (
+  #     builtins.genList (x: [
+  #       "$mod, ${lastChar (toString (x + 1))}, workspace, ${toString (x + 1)}"
+  #       "$mod SHIFT, ${lastChar (toString (x + 1))}, movetoworkspace, ${toString (x + 1)}"
+  #     ]) 10
+  #   )
+  # );
 
   mkLuaBind =
     {
@@ -62,7 +63,8 @@ let
     };
 
   mkKeys = v: v // { _type = "keys"; };
-  mkBind =
+
+  mkBind' =
     {
       action,
       opts ? { },
@@ -72,11 +74,13 @@ let
       _type = "bind";
     };
 
-  mkExec = cmd: { action = "hl.dsp.exec_cmd(${luaValue cmd})"; };
+  mkBind = action: mkBind' { inherit action; };
+
+  mkExec = cmd: "hl.dsp.exec_cmd(${luaValue cmd})";
 
   mkBindli =
-    { action }:
-    mkBind {
+    action:
+    mkBind' {
       inherit action;
       opts = {
         locked = true;
@@ -85,8 +89,8 @@ let
     };
 
   mkBindm =
-    { action }:
-    mkBind {
+    action:
+    mkBind' {
       inherit action;
       opts = {
         mouse = true;
@@ -96,35 +100,35 @@ let
   binds = {
     SUPER = mkKeys {
       SHIFT = mkKeys {
-        Left = mkBind { action = "hy3.move_window(\"l\")"; };
-        Right = mkBind { action = "hy3.move_window(\"r\")"; };
-        Up = mkBind { action = "hy3.move_window(\"u\")"; };
-        Down = mkBind { action = "hy3.move_window(\"d\")"; };
-        X = mkBind { action = "hy3.make_group(\"v\")"; };
+        Left = mkBind "hy3.move_window(\"l\")";
+        Right = mkBind "hy3.move_window(\"r\")";
+        Up = mkBind "hy3.move_window(\"u\")";
+        Down = mkBind "hy3.move_window(\"d\")";
+        X = mkBind "hy3.make_group(\"v\")";
 
         S = mkBind (mkExec "grim -g \"$(slurp)\" - | tee >(stash store) >(satty -f -)");
         C = mkBind (
           mkExec "kitten panel --lines=20 --columns=100 --layer=overlay --edge=center-sized --focus-policy=on-demand -- stash list"
         );
       };
-      Left = mkBind { action = "hy3.move_focus(\"l\")"; };
-      Right = mkBind { action = "hy3.move_focus(\"r\")"; };
-      Up = mkBind { action = "hy3.move_focus(\"u\")"; };
-      Down = mkBind { action = "hy3.move_focus(\"d\")"; };
-      X = mkBind { action = "hy3.make_group(\"h\")"; };
+      Left = mkBind "hy3.move_focus(\"l\")";
+      Right = mkBind "hy3.move_focus(\"r\")";
+      Up = mkBind "hy3.move_focus(\"u\")";
+      Down = mkBind "hy3.move_focus(\"d\")";
+      X = mkBind "hy3.make_group(\"h\")";
 
-      J = mkBind { action = "hl.dsp.window.float(${luaValue { action = "toggle"; }})"; };
-      K = mkBind { action = "hl.dsp.window.fullscreen(${luaValue { action = "toggle"; }})"; };
+      J = mkBind "hl.dsp.window.float(${luaValue { action = "toggle"; }})";
+      K = mkBind "hl.dsp.window.fullscreen(${luaValue { action = "toggle"; }})";
 
       F = mkBind (mkExec userConfig.programs.browser.pname);
       T = mkBind (mkExec userConfig.programs.terminal.pname);
-      M = mkBind { action = "hl.dsp.exit()"; };
-      Q = mkBind { action = "hl.dsp.window.close()"; };
+      M = mkBind "hl.dsp.exit()";
+      Q = mkBind "hl.dsp.window.close()";
       L = mkBind (mkExec "noctalia msg session lock");
       ESCAPE = mkBind (mkExec "noctalia msg panel-toggle session");
 
-      "mouse:274" = mkBindm { action = "hl.dsp.window.drag()"; };
-      "mouse:272" = mkBindm { action = "hl.dsp.window.resize()"; };
+      "mouse:274" = mkBindm "hl.dsp.window.drag()";
+      "mouse:272" = mkBindm "hl.dsp.window.resize()";
     };
     ALT = mkKeys {
       SPACE = mkBind (mkExec "noctalia msg panel-toggle launcher");
@@ -135,17 +139,17 @@ let
     "code:173" = mkBindli (mkExec "playerctl previous");
     "code:171" = mkBindli (mkExec "playerctl next");
     "code:172" = mkBindli (mkExec "playerctl play-pause");
-    F1 = mkBind { action = "hl.dsp.workspace.toggle_special(\"E\")"; };
+    F1 = mkBind "hl.dsp.workspace.toggle_special(\"E\")";
 
   };
 
-  processGroup =
+  processKeys =
     value:
     builtins.concatLists (
       builtins.attrValues (
         builtins.mapAttrs (
-          name: value:
-          if value._type == "keys" then
+          key: keysValue:
+          if keysValue._type == "keys" then
             map (
               {
                 keys,
@@ -154,21 +158,21 @@ let
               }:
               {
                 inherit action opts;
-                keys = [ name ] ++ keys;
+                keys = [ key ] ++ keys;
               }
-            ) (processGroup value)
+            ) (processKeys keysValue)
           else
-            assert value._type == "bind";
+            assert keysValue._type == "bind";
             [
               {
-                keys = [ name ];
-                inherit (value) action opts;
+                keys = [ key ];
+                inherit (keysValue) action opts;
               }
             ]
         ) (removeAttrs value [ "_type" ])
       )
     );
-  processedBinds = map mkLuaBind (processGroup binds);
+  processedBinds = map mkLuaBind (processKeys binds);
   generatedBinds = builtins.concatLists (
     builtins.genList (x: [
       (mkLuaBind {
@@ -318,12 +322,20 @@ in
         })
       ];
 
-      env = map (v: { _args = builtins.filter (x: x != [ ]) (builtins.split "," v); }) [
-        "XDG_CACHE_DIR,/home/usr/.cache/"
-        "XDG_CONFIG_HOME,/home/usr/.config/"
-        "ELECTRON_OZONE_PLATFORM_HINT,auto"
-        "NIXOS_OZONE_WL,1"
-      ];
+      env =
+        builtins.mapAttrs
+          (k: v: {
+            _args = [
+              k
+              v
+            ];
+          })
+          {
+            XDG_CACHE_DIR = "/home/usr/.cache/";
+            XDG_CONFIG_HOME = "/home/usr/.config/";
+            ELECTRON_OZONE_PLATFORM_HINT = "auto";
+            NIXOS_OZONE_WL = "1";
+          };
 
       monitor = {
         output = "Unknown-1";
